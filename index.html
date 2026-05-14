@@ -26,6 +26,7 @@
         <script src="https://d3js.org/d3.v5.min.js"></script>
         <script src="https://d3js.org/d3-collection.v1.min.js"></script>
         <script src="https://rawgit.com/nstrayer/slid3r/master/dist/slid3r.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/echarts@5.5.0/dist/echarts.min.js"></script>
 
         <script defer="" src="./static/js/hider.js"></script>
         <script src="./static/js/image_interact.js"></script>
@@ -239,13 +240,26 @@
             <p class="text">
                 To rigorously evaluate underlying reasoning, CF-World employs a three-level progressive logic across 1,091 scientific principles and 3,273 prompts. This design acts as a control variable method to isolate a model's visual rendering ability from its logical reasoning capacity.
             </p>
-            <figure style="text-align: center; margin: 2rem 0;">
-                <!-- 请确保您有图2的截图，并放在 figs 文件夹下 -->
-                <img src="figs/pie.jpg" alt="CF-World Dataset Overview" style="max-width: 100%; border-radius: 8px;">
-                <figcaption style="font-size: 0.9em; color: #666; margin-top: 10px;">
-                    <strong>Figure 2:</strong> Overview of the CF-World dataset, showcasing disciplinary distribution and qualitative examples across the three progressive levels.
-                </figcaption>
-            </figure>
+            <!-- 旭日图容器 -->
+            <div style="width: 100%; display: flex; flex-direction: column; align-items: center; margin: 3rem 0;">
+                <h3 style="text-align: center; margin-bottom: 10px;">Data Distribution & Prompt Examples</h3>
+                <p style="text-align: center; color: #666; font-size: 0.9rem; margin-bottom: 20px;">
+                    <i class="fas fa-mouse-pointer"></i> <strong>Interactive Chart:</strong> Click on any category slice to view its 3-level prompt examples.
+                </p>
+                <!-- 图表挂载点 -->
+                <div id="sunburst-chart" style="width: 100%; max-width: 700px; height: 500px;"></div>
+            </div>
+            
+            <!-- 隐藏的弹窗 (Modal) -->
+            <div id="example-modal" class="modal-overlay">
+                <div class="modal-content">
+                    <span class="close-btn" onclick="closeModal()">&times;</span>
+                    <h3 id="modal-title" style="margin-top: 0; color: #333;">Category Name</h3>
+                    <!-- 这里用来动态显示对应的示例图片 -->
+                    <img id="modal-image" src="" alt="Prompt Example" style="width: 100%; border-radius: 8px;">
+                </div>
+            </div>
+
             
             <!-- ==========================================
                  SECTION 2: CF-Eval & Key Results
@@ -382,6 +396,83 @@
 
         </div>
         </d-article>
+        <script>
+            // 1. 初始化 ECharts 实例
+            var chartDom = document.getElementById('sunburst-chart');
+            var myChart = echarts.init(chartDom);
+        
+            // 2. 定义数据字典 (将名称映射到您裁剪好的图片路径)
+            const imageMap = {
+                "Classic Mechanics": "figs/classic_mechanics.png",
+                "Optics": "figs/optics.png",
+                "Thermodynamics": "figs/thermodynamics.png",
+                "Astronomy": "figs/astronomy.png",
+                "Electromagnetism": "figs/electromagnetism.png",
+                "Chemical": "figs/chemical.png",
+                "Biology": "figs/biology.png",
+                "Geography": "figs/geography.png",
+                "Socialism": "figs/socialism.png"
+            };
+        
+            // 3. 配置旭日图数据
+            var option = {
+                tooltip: {
+                    trigger: 'item',
+                    formatter: '{b}: {c} prompts'
+                },
+                series: {
+                    type: 'sunburst',
+                    data: [
+                        {
+                            name: 'Physics',
+                            itemStyle: { color: '#2c7fb8' }, // 蓝色系
+                            children: [
+                                { name: 'Classic Mechanics', value: 85, itemStyle: { color: '#1d91c0' } },
+                                { name: 'Optics', value: 102, itemStyle: { color: '#225ea8' } },
+                                { name: 'Thermodynamics', value: 95, itemStyle: { color: '#253494' } },
+                                { name: 'Astronomy', value: 75, itemStyle: { color: '#41b6c4' } },
+                                { name: 'Electromagnetism', value: 55, itemStyle: { color: '#7fcdbb' } }
+                            ]
+                        },
+                        { name: 'Chemical', value: 173, itemStyle: { color: '#f4a582' } }, // 橙色
+                        { name: 'Biology', value: 173, itemStyle: { color: '#c2a5cf' } },  // 紫色
+                        { name: 'Geography', value: 25, itemStyle: { color: '#a6dba0' } }, // 绿色
+                        { name: 'Socialism', value: 22, itemStyle: { color: '#fddbc7' } }  // 浅黄/粉
+                    ],
+                    radius: ['20%', '90%'],
+                    label: {
+                        rotate: 'radial',
+                        color: '#fff',
+                        fontSize: 12
+                    }
+                }
+            };
+            myChart.setOption(option);
+        
+            // 4. 绑定点击事件
+            myChart.on('click', function (params) {
+                // 如果点击的是有对应图片的具体学科
+                if (imageMap[params.name]) {
+                    document.getElementById('modal-title').innerText = params.name + " Examples";
+                    document.getElementById('modal-image').src = imageMap[params.name];
+                    document.getElementById('example-modal').style.display = 'flex';
+                }
+            });
+        
+            // 5. 关闭弹窗的函数
+            function closeModal() {
+                document.getElementById('example-modal').style.display = 'none';
+            }
+        
+            // 点击弹窗外部背景也能关闭
+            window.onclick = function(event) {
+                var modal = document.getElementById('example-modal');
+                if (event.target == modal) {
+                    modal.style.display = "none";
+                }
+            }
+        </script>
+
     </body>
 </html>
 </html>
