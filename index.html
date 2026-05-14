@@ -572,6 +572,26 @@
                 }
             </script>
 
+        
+            <script>
+                // 切换交互式图片的函数
+                function switchImage(targetId, btnElement) {
+                    // 1. 移除所有按钮的 active 状态
+                    const buttons = document.querySelectorAll('.model-btn');
+                    buttons.forEach(btn => btn.classList.remove('active'));
+                    
+                    // 2. 给当前点击的按钮添加 active 状态
+                    btnElement.classList.add('active');
+                    
+                    // 3. 隐藏所有图片
+                    const images = document.querySelectorAll('.viewer-img');
+                    images.forEach(img => img.classList.remove('active'));
+                    
+                    // 4. 显示目标图片
+                    document.getElementById(targetId).classList.add('active');
+                }
+            </script>
+
 
     </body>
 </html>
