@@ -192,9 +192,18 @@
                 Current text-to-image (T2I) models face a similar dilemma. While they generate high-quality images complying with commonsense, does this stem from a genuine grasp of underlying objective laws, or is it merely mechanical memorization of high-frequency co-occurrences?
             </p>
             
-            <figure style="width: 120%; margin: 2rem 0;">
-                <img src="figs/counterfactual_mainpic.jpg" alt="Inductivist Turkey" style="display: block; margin: 0 auto; max-width: 100%; border-radius: 8px;">
-            </figure>
+            <!-- 使用 Flex 强制居中容器，并突破默认文本列宽 -->
+            <div style="width: 100%; display: flex; justify-content: center; margin: 3rem 0;">
+                <figure style="width: 100%; max-width: 950px; margin: 0; text-align: center;">
+                    <img src="figs/figure1.png" alt="Inductivist Turkey Dilemma" style="width: 100%; height: auto; display: block; margin: 0 auto; border-radius: 8px; box-shadow: 0 4px 15px rgba(0,0,0,0.08);">
+                    
+                    <!-- 图片说明文字 -->
+                    <figcaption style="font-size: 0.95rem; color: #555; margin-top: 15px; line-height: 1.5; text-align: left; padding: 0 10px;">
+                        <strong>Figure 1:</strong> Text-to-image models as inductivist turkeys. Models perform best on standard factual prompts but suffer a precipitous drop on counterfactuals, demonstrating a failure to genuinely reason.
+                    </figcaption>
+                </figure>
+            </div>
+
 
             
             <!-- 导航跳转菜单 -->
