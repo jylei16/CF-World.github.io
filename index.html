@@ -286,16 +286,16 @@
                     </li>
                 </ul>
             
-                <!-- 插入的流程图 -->
-                <figure style="margin: 0; display: flex; flex-direction: column; align-items: center;">
-                    <!-- 请确保 src 的路径与您本地存放该图片的路径一致 -->
-                    <img src="figs/score_pipeline.jpg" alt="VLM-based scoring pipeline" style="width: 100%; max-width: 900px; height: auto; border-radius: 8px; box-shadow: 0 4px 15px rgba(0,0,0,0.08);">
-                    
-                    <!-- 图注 (Caption) -->
-                    <figcaption style="margin-top: 15px; max-width: 900px; font-size: 0.95rem; color: #555; line-height: 1.6; text-align: justify;">
-                        <strong>Figure 3: VLM-based scoring pipeline.</strong> Our proposed multi-dimensional scoring pipeline, featuring a sequential thresholding mechanism ($$S_{L1} \ge 0.5$$) and metrics-Prior Resistance Rate (PRR) and Reasoning Retention Rate (RRR).
-                    </figcaption>
-                </figure>
+                    <!-- 插入的流程图 (已修复居中与公式换行问题) -->
+                    <figure style="margin: 2rem auto; text-align: center; max-width: 900px; display: block;">
+                        <img src="figs/pipeline.png" alt="VLM-based scoring pipeline" style="width: 100%; height: auto; border-radius: 8px; box-shadow: 0 4px 15px rgba(0,0,0,0.08);">
+                        
+                        <!-- 图注 (Caption) -->
+                        <figcaption style="margin-top: 15px; font-size: 0.95rem; color: #555; line-height: 1.6; text-align: justify;">
+                            <strong>Figure 3: VLM-based scoring pipeline.</strong> Our proposed multi-dimensional scoring pipeline, featuring a sequential thresholding mechanism (<i>S<sub>L1</sub> &ge; 0.5</i>) and metrics-Prior Resistance Rate (PRR) and Reasoning Retention Rate (RRR).
+                        </figcaption>
+                    </figure>
+
             </section>
 
             
@@ -318,17 +318,27 @@
                 <!-- 完整数据的学术三线表 -->
                 <div class="table-responsive">
                     <table class="academic-table">
+                                    <!-- 表头部分 (已强制居中，Model 左对齐) -->
                         <thead>
                             <tr>
-                                <th rowspan="2" style="text-align: left;">Model</th>
-                                <th colspan="5">Qwen3-VL-235B</th>
-                                <th colspan="5">Gemini-3-Pro</th>
+                                <th rowspan="2" style="text-align: left; vertical-align: middle; border-bottom: 1px solid #aaa;">Model</th>
+                                <th colspan="5" style="text-align: center; border-bottom: 1px solid #aaa;">Qwen3-VL-235B</th>
+                                <th colspan="5" style="text-align: center; border-bottom: 1px solid #aaa;">Gemini-3-Pro</th>
                             </tr>
                             <tr>
-                                <th>L1</th><th>L2</th><th>L3</th><th>PRR↑</th><th>RRR↑</th>
-                                <th>L1</th><th>L2</th><th>L3</th><th>PRR↑</th><th>RRR↑</th>
+                                <th style="text-align: center; border-bottom: 1px solid #000;">L1</th>
+                                <th style="text-align: center; border-bottom: 1px solid #000;">L2</th>
+                                <th style="text-align: center; border-bottom: 1px solid #000;">L3</th>
+                                <th style="text-align: center; border-bottom: 1px solid #000;">PRR↑</th>
+                                <th style="text-align: center; border-bottom: 1px solid #000;">RRR↑</th>
+                                <th style="text-align: center; border-bottom: 1px solid #000;">L1</th>
+                                <th style="text-align: center; border-bottom: 1px solid #000;">L2</th>
+                                <th style="text-align: center; border-bottom: 1px solid #000;">L3</th>
+                                <th style="text-align: center; border-bottom: 1px solid #000;">PRR↑</th>
+                                <th style="text-align: center; border-bottom: 1px solid #000;">RRR↑</th>
                             </tr>
                         </thead>
+    
                         <tbody>
                             <!-- 开源模型组 -->
                             <tr class="group-header open-source"><td colspan="11">Open-Source Models</td></tr>
