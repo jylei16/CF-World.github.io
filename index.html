@@ -192,23 +192,25 @@
                 Current text-to-image (T2I) models face a similar dilemma. While they generate high-quality images complying with commonsense, does this stem from a genuine grasp of underlying objective laws, or is it merely mechanical memorization of high-frequency co-occurrences?
             </p>
             
-            <figure style="text-align: center; margin: 2rem 0;">
-                <img src="figs/counterfactual_mainpic.png" alt="Inductivist Turkey Metaphor" style="max-width: 100%; border-radius: 8px;">
-                <figcaption style="font-size: 0.9em; color: #666; margin-top: 10px;">
-                    <strong>Figure 1:</strong> Text-to-image models as inductivist turkeys. Models perform best on standard factual prompts but suffer a precipitous drop on counterfactuals, demonstrating a failure to genuinely reason.
-                </figcaption>
+            <figure style="width: 100%; margin: 2rem 0;">
+                <img src="figs/counterfacutal_mainpic.jpg" alt="Inductivist Turkey" style="display: block; margin: 0 auto; max-width: 100%; border-radius: 8px;">
             </figure>
+
             
             <!-- 导航跳转菜单 -->
             <div class="nav-menu-container">
                 <div class="nav-buttons">
                     <a href="#benchmark" class="nav-btn">
                         <i class="fas fa-database"></i>
-                        <span>The CF-World Benchmark</span>
+                        <span>CF-World</span>
                     </a>
                     <a href="#evaluation" class="nav-btn">
+                        <i class="fas fa-tasks"></i>
+                        <span>CF-Eval</span>
+                    </a>
+                    <a href="#results" class="nav-btn">
                         <i class="fas fa-chart-bar"></i>
-                        <span>CF-Eval & Key Results</span>
+                        <span>Key Results</span>
                     </a>
                     <a href="#decoupling" class="nav-btn">
                         <i class="fas fa-search"></i>
@@ -224,13 +226,13 @@
             <!-- ==========================================
                  SECTION 1: The CF-World Benchmark
             =========================================== -->
-            <h2 class="text">1. The CF-World Benchmark</h2>
+            <h2 class="text" id="benchmark">1. The CF-World Benchmark</h2>
             <p class="text">
                 To rigorously evaluate underlying reasoning, CF-World employs a three-level progressive logic across 1,091 scientific principles and 3,273 prompts. This design acts as a control variable method to isolate a model's visual rendering ability from its logical reasoning capacity.
             </p>
             <figure style="text-align: center; margin: 2rem 0;">
                 <!-- 请确保您有图2的截图，并放在 figs 文件夹下 -->
-                <img src="figs/figure2.png" alt="CF-World Dataset Overview" style="max-width: 100%; border-radius: 8px;">
+                <img src="figs/pie.jpg" alt="CF-World Dataset Overview" style="max-width: 100%; border-radius: 8px;">
                 <figcaption style="font-size: 0.9em; color: #666; margin-top: 10px;">
                     <strong>Figure 2:</strong> Overview of the CF-World dataset, showcasing disciplinary distribution and qualitative examples across the three progressive levels.
                 </figcaption>
