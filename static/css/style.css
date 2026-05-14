@@ -2121,3 +2121,123 @@ figure img {
     from { transform: scale(0.9); opacity: 0; }
     to { transform: scale(1); opacity: 1; }
 }
+
+/* ==========================================
+   Key Results 表格样式 (Academic Booktabs)
+========================================== */
+.table-caption {
+    font-size: 1rem;
+    line-height: 1.5;
+    color: #333;
+    margin-bottom: 10px;
+    text-align: justify;
+}
+.cap-hl-blue { background-color: #d9f0ff; padding: 0 4px; }
+.cap-hl-pink { background-color: #ffe6e6; padding: 0 4px; }
+
+.table-responsive {
+    width: 100%;
+    overflow-x: auto;
+    margin-bottom: 2rem;
+}
+
+.academic-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-family: "Times New Roman", Times, serif; /* 学术表格常用字体 */
+    font-size: 1.05rem;
+    text-align: center;
+    border-top: 2px solid #000;
+    border-bottom: 2px solid #000;
+}
+
+.academic-table th, .academic-table td {
+    padding: 8px 12px;
+    white-space: nowrap;
+}
+
+.academic-table thead tr:first-child th {
+    border-bottom: 1px solid #aaa;
+}
+.academic-table thead tr:last-child th {
+    border-bottom: 1px solid #000;
+}
+
+.academic-table .model-name {
+    text-align: left;
+}
+
+/* 分组标题背景色 */
+.group-header.open-source td {
+    background-color: #fff9c4; /* 浅黄色 */
+    font-style: italic;
+    border-bottom: 1px solid #ddd;
+}
+.group-header.closed-source td {
+    background-color: #e6e0ff; /* 浅紫色 */
+    font-style: italic;
+    border-top: 1px solid #aaa;
+    border-bottom: 1px solid #ddd;
+}
+
+/* 最佳数据高亮色 */
+.academic-table td.hl-blue { background-color: #d9f0ff; }
+.academic-table td.hl-pink { background-color: #ffe6e6; }
+
+/* ==========================================
+   交互式图片查看器样式
+========================================== */
+.interactive-viewer {
+    border: 1px solid #eaeaea;
+    border-radius: 8px;
+    padding: 20px;
+    background: #fafafa;
+}
+
+.viewer-controls {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    justify-content: center;
+    margin-bottom: 20px;
+}
+
+.model-btn {
+    padding: 8px 16px;
+    border: 1px solid #ccc;
+    background: #fff;
+    border-radius: 20px;
+    cursor: pointer;
+    font-size: 0.95rem;
+    transition: all 0.2s;
+}
+
+.model-btn:hover { background: #f0f0f0; }
+.model-btn.active {
+    background: #333;
+    color: #fff;
+    border-color: #333;
+}
+
+.viewer-display {
+    position: relative;
+    width: 100%;
+    min-height: 300px; /* 根据您的图片高度可适当调整 */
+    display: flex;
+    justify-content: center;
+}
+
+.viewer-img {
+    display: none;
+    max-width: 100%;
+    height: auto;
+    border-radius: 6px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    animation: fadeIn 0.3s ease-in-out;
+}
+.viewer-img.active { display: block; }
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(5px); }
+    to { opacity: 1; transform: translateY(0); }
+}
