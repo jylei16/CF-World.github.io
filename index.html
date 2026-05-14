@@ -264,127 +264,125 @@
             <!-- ==========================================
                  SECTION 2: CF-Eval & Key Results
             =========================================== -->
+                        <!-- ==========================================
+                 SECTION 2: CF-Eval & Key Results
+            =========================================== -->
+            
             <!-- CF-Eval 章节 -->
-            <section id="cf-eval" style="margin: 4rem 0;">
-                <!-- 标题 -->
-                <h2 style="font-size: 2rem; color: #333; border-bottom: 1px solid #eaeaea; padding-bottom: 10px; margin-bottom: 20px;">
-                    CF-Eval
-                </h2>
-                
-                <!-- 介绍文字 -->
-                <p style="font-size: 1.1rem; line-height: 1.7; color: #444; margin-bottom: 15px;">
-                    We introduce <strong>CF-Eval</strong>, a VLM-based automated evaluation pipeline. To rigorously quantify models' true reasoning capabilities, we propose two novel metrics:
-                </p>
-                
-                <!-- 列表项 -->
-                <ul style="font-size: 1.1rem; line-height: 1.7; color: #444; margin-bottom: 40px; padding-left: 20px;">
-                    <li style="margin-bottom: 12px;">
-                        <strong>Prior Resistance Rate (PRR):</strong> Measures a model's ability to overcome entrenched real-world priors when given explicit counterfactual instructions.
-                    </li>
-                    <li>
-                        <strong>Reasoning Retention Rate (RRR):</strong> Assesses whether models can maintain reasoning-dependent counterfactual generation without explicit visual cues.
-                    </li>
-                </ul>
+            <!-- Fixed ID to match navigation menu (#evaluation) -->
+            <h2 class="text" id="evaluation" style="border-bottom: 1px solid #eaeaea; padding-bottom: 10px; margin-bottom: 20px; margin-top: 4rem;">
+                CF-Eval
+            </h2>
             
-                    <!-- 插入的流程图 (已修复居中与公式换行问题) -->
-                    <figure style="margin: 2rem auto; text-align: center; max-width: 900px; display: block;">
-                        <img src="figs/score_pipeline.jpg" alt="VLM-based scoring pipeline" style="width: 100%; height: auto; border-radius: 8px; box-shadow: 0 4px 15px rgba(0,0,0,0.08);">
-                        
-                        <!-- 图注 (Caption) -->
-                        <figcaption style="margin-top: 15px; font-size: 0.95rem; color: #555; line-height: 1.6; text-align: justify;">
-                            <strong>Figure 3: VLM-based scoring pipeline.</strong> Our proposed multi-dimensional scoring pipeline, featuring a sequential thresholding mechanism (<i>S<sub>L1</sub> &ge; 0.5</i>) and metrics-Prior Resistance Rate (PRR) and Reasoning Retention Rate (RRR).
-                        </figcaption>
-                    </figure>
-
-            </section>
-
+            <p class="text">
+                We introduce <strong>CF-Eval</strong>, a VLM-based automated evaluation pipeline. To rigorously quantify models' true reasoning capabilities, we propose two novel metrics:
+            </p>
             
+            <ul class="text" style="margin-bottom: 40px; padding-left: 20px;">
+                <li style="margin-bottom: 12px;">
+                    <strong>Prior Resistance Rate (PRR):</strong> Measures a model's ability to overcome entrenched real-world priors when given explicit counterfactual instructions.
+                </li>
+                <li>
+                    <strong>Reasoning Retention Rate (RRR):</strong> Assesses whether models can maintain reasoning-dependent counterfactual generation without explicit visual cues.
+                </li>
+            </ul>
+        
+            <!-- 插入的流程图 -->
+            <figure style="margin: 2rem auto; text-align: center; max-width: 900px; display: block;">
+                <img src="figs/score_pipeline.jpg" alt="VLM-based scoring pipeline" style="width: 100%; height: auto; border-radius: 8px; box-shadow: 0 4px 15px rgba(0,0,0,0.08);">
+                
+                <!-- 图注 (Caption) -->
+                <figcaption style="margin-top: 15px; font-size: 0.95rem; color: #555; line-height: 1.6; text-align: justify;">
+                    <strong>Figure 3: VLM-based scoring pipeline.</strong> Our proposed multi-dimensional scoring pipeline, featuring a sequential thresholding mechanism (<i>S<sub>L1</sub> &ge; 0.5</i>) and metrics-Prior Resistance Rate (PRR) and Reasoning Retention Rate (RRR).
+                </figcaption>
+            </figure>
+
+
             <!-- Key Results 章节 -->
-            <section id="key-results" style="margin: 4rem 0;">
-                <!-- 章节标题 (与 CF-Eval 同级) -->
-                <h2 style="font-size: 2rem; color: #333; border-bottom: 1px solid #eaeaea; padding-bottom: 10px; margin-bottom: 20px;">
-                    Key Results
-                </h2>
-                
-                <p style="font-size: 1.1rem; line-height: 1.7; color: #444; margin-bottom: 20px;">
-                    Extensive evaluations reveal a stark reality: even state-of-the-art models experience significant performance degradation when confronted with explicit (L2) and implicit (L3) counterfactuals. Closed-source models currently hold a distinct advantage in mitigating prior entanglement.
-                </p>
+            <!-- Fixed ID to match navigation menu (#results) -->
+            <h2 class="text" id="results" style="border-bottom: 1px solid #eaeaea; padding-bottom: 10px; margin-bottom: 20px; margin-top: 4rem;">
+                Key Results
+            </h2>
             
-                <!-- 表格标题 (Caption) -->
-                <div class="table-caption">
-                    <strong>Table 1:</strong> Main evaluation results on the CF-World dataset. All metrics are scaled to 0-1. PRR and RRR are calculated to quantify reasoning robustness. The best performing open-weight models in each column are highlighted in <span class="cap-hl-blue">blue</span>, while the best proprietary models are highlighted in <span class="cap-hl-pink">pink</span>.
-                </div>
+            <p class="text">
+                Extensive evaluations reveal a stark reality: even state-of-the-art models experience significant performance degradation when confronted with explicit (L2) and implicit (L3) counterfactuals. Closed-source models currently hold a distinct advantage in mitigating prior entanglement.
+            </p>
+        
+            <!-- 表格标题 (Caption) -->
+            <div class="table-caption" style="max-width: 1000px; margin: 0 auto;">
+                <strong>Table 1:</strong> Main evaluation results on the CF-World dataset. All metrics are scaled to 0-1. PRR and RRR are calculated to quantify reasoning robustness. The best performing open-weight models in each column are highlighted in <span class="cap-hl-blue" style="color: #007bff; font-weight: bold;">blue</span>, while the best proprietary models are highlighted in <span class="cap-hl-pink" style="color: #e83e8c; font-weight: bold;">pink</span>.
+            </div>
+        
+            <!-- 完整数据的学术三线表 -->
+            <div class="table-responsive" style="max-width: 1000px; margin: 0 auto;">
+                <table class="academic-table">
+                    <!-- 表头部分 -->
+                    <thead>
+                        <tr>
+                            <th rowspan="2" style="text-align: left; vertical-align: middle; border-bottom: 1px solid #aaa;">Model</th>
+                            <th colspan="5" style="text-align: center; border-bottom: 1px solid #aaa;">Qwen3-VL-235B</th>
+                            <th colspan="5" style="text-align: center; border-bottom: 1px solid #aaa;">Gemini-3-Pro</th>
+                        </tr>
+                        <tr>
+                            <th style="text-align: center; border-bottom: 1px solid #000;">L1</th>
+                            <th style="text-align: center; border-bottom: 1px solid #000;">L2</th>
+                            <th style="text-align: center; border-bottom: 1px solid #000;">L3</th>
+                            <th style="text-align: center; border-bottom: 1px solid #000;">PRR↑</th>
+                            <th style="text-align: center; border-bottom: 1px solid #000;">RRR↑</th>
+                            <th style="text-align: center; border-bottom: 1px solid #000;">L1</th>
+                            <th style="text-align: center; border-bottom: 1px solid #000;">L2</th>
+                            <th style="text-align: center; border-bottom: 1px solid #000;">L3</th>
+                            <th style="text-align: center; border-bottom: 1px solid #000;">PRR↑</th>
+                            <th style="text-align: center; border-bottom: 1px solid #000;">RRR↑</th>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+                        <!-- 开源模型组 -->
+                        <tr class="group-header open-source"><td colspan="11" style="font-weight: bold; background-color: #f9f9f9;">Open-Source Models</td></tr>
+                        <tr><td class="model-name">SANA 1.5</td><td>0.83</td><td>0.36</td><td>0.23</td><td>0.40</td><td>0.38</td><td>0.75</td><td>0.29</td><td>0.17</td><td>0.33</td><td>0.32</td></tr>
+                        <tr><td class="model-name">Janus-Pro-7B</td><td>0.80</td><td>0.29</td><td>0.21</td><td>0.32</td><td>0.39</td><td>0.69</td><td>0.21</td><td>0.11</td><td>0.25</td><td>0.24</td></tr>
+                        <tr><td class="model-name">Show-o2</td><td>0.77</td><td>0.32</td><td>0.20</td><td>0.36</td><td>0.35</td><td>0.66</td><td>0.25</td><td>0.14</td><td>0.31</td><td>0.28</td></tr>
+                        <tr><td class="model-name">Z-image</td><td>0.82</td><td>0.38</td><td>0.21</td><td>0.42</td><td>0.34</td><td>0.75</td><td>0.33</td><td>0.16</td><td>0.38</td><td>0.28</td></tr>
+                        <tr><td class="model-name">Lumina-DiMOO</td><td>0.76</td><td>0.33</td><td>0.20</td><td>0.38</td><td>0.35</td><td>0.70</td><td>0.29</td><td>0.17</td><td>0.35</td><td>0.32</td></tr>
+                        <tr><td class="model-name">BAGEL</td><td>0.80</td><td>0.29</td><td>0.17</td><td>0.32</td><td>0.32</td><td>0.73</td><td>0.29</td><td>0.15</td><td>0.34</td><td>0.28</td></tr>
+                        <tr><td class="model-name">BAGEL-CoT</td><td class="hl-blue" style="color: #007bff; font-weight: bold;">0.88</td><td class="hl-blue" style="color: #007bff; font-weight: bold;">0.43</td><td class="hl-blue" style="color: #007bff; font-weight: bold;">0.29</td><td>0.46</td><td class="hl-blue" style="color: #007bff; font-weight: bold;">0.44</td><td>0.82</td><td>0.41</td><td>0.26</td><td>0.45</td><td class="hl-blue" style="color: #007bff; font-weight: bold;">0.41</td></tr>
+                        <tr><td class="model-name">OmniGen2</td><td>0.76</td><td>0.32</td><td>0.19</td><td>0.37</td><td>0.34</td><td>0.70</td><td>0.29</td><td>0.18</td><td>0.35</td><td>0.33</td></tr>
+                        <tr><td class="model-name">FLUX.2-dev</td><td>0.81</td><td>0.42</td><td>0.26</td><td class="hl-blue" style="color: #007bff; font-weight: bold;">0.47</td><td>0.40</td><td class="hl-blue" style="color: #007bff; font-weight: bold;">0.83</td><td class="hl-blue" style="color: #007bff; font-weight: bold;">0.48</td><td class="hl-blue" style="color: #007bff; font-weight: bold;">0.28</td><td class="hl-blue" style="color: #007bff; font-weight: bold;">0.53</td><td>0.40</td></tr>
+                        <tr><td class="model-name">Qwen-Image</td><td>0.84</td><td>0.35</td><td>0.24</td><td>0.38</td><td>0.41</td><td>0.80</td><td>0.37</td><td>0.23</td><td>0.41</td><td>0.38</td></tr>
+                        
+                        <!-- 闭源模型组 -->
+                        <tr class="group-header closed-source"><td colspan="11" style="font-weight: bold; background-color: #f9f9f9;">Closed-Source Models</td></tr>
+                        <tr><td class="model-name">Nano Banana</td><td>0.93</td><td>0.64</td><td>0.55</td><td>0.66</td><td>0.69</td><td>0.88</td><td>0.64</td><td>0.52</td><td>0.68</td><td>0.65</td></tr>
+                        <tr><td class="model-name">Nano Banana Pro</td><td class="hl-pink" style="color: #e83e8c; font-weight: bold;">0.95</td><td class="hl-pink" style="color: #e83e8c; font-weight: bold;">0.67</td><td class="hl-pink" style="color: #e83e8c; font-weight: bold;">0.58</td><td class="hl-pink" style="color: #e83e8c; font-weight: bold;">0.69</td><td class="hl-pink" style="color: #e83e8c; font-weight: bold;">0.71</td><td class="hl-pink" style="color: #e83e8c; font-weight: bold;">0.93</td><td class="hl-pink" style="color: #e83e8c; font-weight: bold;">0.76</td><td class="hl-pink" style="color: #e83e8c; font-weight: bold;">0.67</td><td class="hl-pink" style="color: #e83e8c; font-weight: bold;">0.79</td><td class="hl-pink" style="color: #e83e8c; font-weight: bold;">0.77</td></tr>
+                        <tr><td class="model-name">GPT-Image-1.5</td><td>0.92</td><td>0.66</td><td>0.49</td><td class="hl-pink" style="color: #e83e8c; font-weight: bold;">0.69</td><td>0.60</td><td>0.91</td><td>0.73</td><td>0.55</td><td>0.77</td><td>0.64</td></tr>
+                        <tr><td class="model-name" style="border-bottom: 1px solid #000;">Seedream 5.0</td><td style="border-bottom: 1px solid #000;">0.91</td><td style="border-bottom: 1px solid #000;">0.63</td><td style="border-bottom: 1px solid #000;">0.50</td><td style="border-bottom: 1px solid #000;">0.66</td><td style="border-bottom: 1px solid #000;">0.63</td><td style="border-bottom: 1px solid #000;">0.89</td><td style="border-bottom: 1px solid #000;">0.72</td><td style="border-bottom: 1px solid #000;">0.61</td><td style="border-bottom: 1px solid #000;">0.76</td><td style="border-bottom: 1px solid #000;">0.72</td></tr>
+                    </tbody>
+                </table>
+            </div>
+        
+            <!-- 交互式定性对比部分 -->
+            <h3 class="text" style="margin-top: 3rem; margin-bottom: 15px;">Interactive Qualitative Comparison</h3>
+            <p class="text">
+                Select a model below to see how it responds to the counterfactual prompt: <em>"If water surface tension was infinitely strong, draw a person trying to wade in a pool..."</em> Notice how most models fail to decouple their training priors and default to real-world factual representations.
+            </p>
             
-                <!-- 完整数据的学术三线表 -->
-                <div class="table-responsive">
-                    <table class="academic-table">
-                                    <!-- 表头部分 (已强制居中，Model 左对齐) -->
-                        <thead>
-                            <tr>
-                                <th rowspan="2" style="text-align: left; vertical-align: middle; border-bottom: 1px solid #aaa;">Model</th>
-                                <th colspan="5" style="text-align: center; border-bottom: 1px solid #aaa;">Qwen3-VL-235B</th>
-                                <th colspan="5" style="text-align: center; border-bottom: 1px solid #aaa;">Gemini-3-Pro</th>
-                            </tr>
-                            <tr>
-                                <th style="text-align: center; border-bottom: 1px solid #000;">L1</th>
-                                <th style="text-align: center; border-bottom: 1px solid #000;">L2</th>
-                                <th style="text-align: center; border-bottom: 1px solid #000;">L3</th>
-                                <th style="text-align: center; border-bottom: 1px solid #000;">PRR↑</th>
-                                <th style="text-align: center; border-bottom: 1px solid #000;">RRR↑</th>
-                                <th style="text-align: center; border-bottom: 1px solid #000;">L1</th>
-                                <th style="text-align: center; border-bottom: 1px solid #000;">L2</th>
-                                <th style="text-align: center; border-bottom: 1px solid #000;">L3</th>
-                                <th style="text-align: center; border-bottom: 1px solid #000;">PRR↑</th>
-                                <th style="text-align: center; border-bottom: 1px solid #000;">RRR↑</th>
-                            </tr>
-                        </thead>
-    
-                        <tbody>
-                            <!-- 开源模型组 -->
-                            <tr class="group-header open-source"><td colspan="11">Open-Source Models</td></tr>
-                            <tr><td class="model-name">SANA 1.5</td><td>0.83</td><td>0.36</td><td>0.23</td><td>0.40</td><td>0.38</td><td>0.75</td><td>0.29</td><td>0.17</td><td>0.33</td><td>0.32</td></tr>
-                            <tr><td class="model-name">Janus-Pro-7B</td><td>0.80</td><td>0.29</td><td>0.21</td><td>0.32</td><td>0.39</td><td>0.69</td><td>0.21</td><td>0.11</td><td>0.25</td><td>0.24</td></tr>
-                            <tr><td class="model-name">Show-o2</td><td>0.77</td><td>0.32</td><td>0.20</td><td>0.36</td><td>0.35</td><td>0.66</td><td>0.25</td><td>0.14</td><td>0.31</td><td>0.28</td></tr>
-                            <tr><td class="model-name">Z-image</td><td>0.82</td><td>0.38</td><td>0.21</td><td>0.42</td><td>0.34</td><td>0.75</td><td>0.33</td><td>0.16</td><td>0.38</td><td>0.28</td></tr>
-                            <tr><td class="model-name">Lumina-DiMOO</td><td>0.76</td><td>0.33</td><td>0.20</td><td>0.38</td><td>0.35</td><td>0.70</td><td>0.29</td><td>0.17</td><td>0.35</td><td>0.32</td></tr>
-                            <tr><td class="model-name">BAGEL</td><td>0.80</td><td>0.29</td><td>0.17</td><td>0.32</td><td>0.32</td><td>0.73</td><td>0.29</td><td>0.15</td><td>0.34</td><td>0.28</td></tr>
-                            <tr><td class="model-name">BAGEL-CoT</td><td class="hl-blue">0.88</td><td class="hl-blue">0.43</td><td class="hl-blue">0.29</td><td>0.46</td><td class="hl-blue">0.44</td><td>0.82</td><td>0.41</td><td>0.26</td><td>0.45</td><td class="hl-blue">0.41</td></tr>
-                            <tr><td class="model-name">OmniGen2</td><td>0.76</td><td>0.32</td><td>0.19</td><td>0.37</td><td>0.34</td><td>0.70</td><td>0.29</td><td>0.18</td><td>0.35</td><td>0.33</td></tr>
-                            <tr><td class="model-name">FLUX.2-dev</td><td>0.81</td><td>0.42</td><td>0.26</td><td class="hl-blue">0.47</td><td>0.40</td><td class="hl-blue">0.83</td><td class="hl-blue">0.48</td><td class="hl-blue">0.28</td><td class="hl-blue">0.53</td><td>0.40</td></tr>
-                            <tr><td class="model-name">Qwen-Image</td><td>0.84</td><td>0.35</td><td>0.24</td><td>0.38</td><td>0.41</td><td>0.80</td><td>0.37</td><td>0.23</td><td>0.41</td><td>0.38</td></tr>
-                            
-                            <!-- 闭源模型组 -->
-                            <tr class="group-header closed-source"><td colspan="11">Closed-Source Models</td></tr>
-                            <tr><td class="model-name">Nano Banana</td><td>0.93</td><td>0.64</td><td>0.55</td><td>0.66</td><td>0.69</td><td>0.88</td><td>0.64</td><td>0.52</td><td>0.68</td><td>0.65</td></tr>
-                            <tr><td class="model-name">Nano Banana Pro</td><td class="hl-pink">0.95</td><td class="hl-pink">0.67</td><td class="hl-pink">0.58</td><td class="hl-pink">0.69</td><td class="hl-pink">0.71</td><td class="hl-pink">0.93</td><td class="hl-pink">0.76</td><td class="hl-pink">0.67</td><td class="hl-pink">0.79</td><td class="hl-pink">0.77</td></tr>
-                            <tr><td class="model-name">GPT-Image-1.5</td><td>0.92</td><td>0.66</td><td>0.49</td><td class="hl-pink">0.69</td><td>0.60</td><td>0.91</td><td>0.73</td><td>0.55</td><td>0.77</td><td>0.64</td></tr>
-                            <tr><td class="model-name" style="border-bottom: none;">Seedream 5.0</td><td>0.91</td><td>0.63</td><td>0.50</td><td>0.66</td><td>0.63</td><td>0.89</td><td>0.72</td><td>0.61</td><td>0.76</td><td>0.72</td></tr>
-                        </tbody>
-                    </table>
+            <div class="interactive-viewer" style="max-width: 1000px; margin: 0 auto;">
+                <div class="viewer-controls" id="model-controls">
+                    <button class="model-btn active" onclick="switchImage('img-flux', this)">FLUX.2-dev</button>
+                    <button class="model-btn" onclick="switchImage('img-janus', this)">Janus-Pro-7B</button>
+                    <button class="model-btn" onclick="switchImage('img-gpt', this)">GPT-Image-1.5</button>
+                    <button class="model-btn" onclick="switchImage('img-nano', this)">Nano Banana Pro</button>
                 </div>
-            
-                <!-- 交互式定性对比部分 -->
-                <h3 style="font-size: 1.5rem; color: #333; margin-top: 3rem; margin-bottom: 15px;">Interactive Qualitative Comparison</h3>
-                <p style="font-size: 1.1rem; line-height: 1.7; color: #444; margin-bottom: 20px;">
-                    Select a model below to see how it responds to the counterfactual prompt: <em>"If water surface tension was infinitely strong, draw a person trying to wade in a pool..."</em> Notice how most models fail to decouple their training priors and default to real-world factual representations.
-                </p>
-                
-                <div class="interactive-viewer">
-                    <div class="viewer-controls" id="model-controls">
-                        <button class="model-btn active" onclick="switchImage('img-flux', this)">FLUX.2-dev</button>
-                        <button class="model-btn" onclick="switchImage('img-janus', this)">Janus-Pro-7B</button>
-                        <button class="model-btn" onclick="switchImage('img-gpt', this)">GPT-Image-1.5</button>
-                        <button class="model-btn" onclick="switchImage('img-nano', this)">Nano Banana Pro</button>
-                    </div>
-                    <div class="viewer-display">
-                        <!-- 请确保这些图片路径正确 -->
-                        <img id="img-flux" class="viewer-img active" src="figs/fig4_flux.png" alt="FLUX Result">
-                        <img id="img-janus" class="viewer-img" src="figs/fig4_janus.png" alt="Janus Result">
-                        <img id="img-gpt" class="viewer-img" src="figs/fig4_gpt.png" alt="GPT Result">
-                        <img id="img-nano" class="viewer-img" src="figs/fig4_nano.png" alt="Nano Banana Result">
-                    </div>
+                <div class="viewer-display">
+                    <!-- 请确保这些图片路径正确 -->
+                    <img id="img-flux" class="viewer-img active" src="figs/fig4_flux.png" alt="FLUX Result">
+                    <img id="img-janus" class="viewer-img" src="figs/fig4_janus.png" alt="Janus Result">
+                    <img id="img-gpt" class="viewer-img" src="figs/fig4_gpt.png" alt="GPT Result">
+                    <img id="img-nano" class="viewer-img" src="figs/fig4_nano.png" alt="Nano Banana Result">
                 </div>
-            </section>
+            </div>
+
 
             
             <!-- ==========================================
