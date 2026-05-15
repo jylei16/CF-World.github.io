@@ -284,17 +284,16 @@
                 </li>
             </ul>
 
-            <!-- 使用 Flex 强制居中容器，并突破默认文本列宽 -->
-            <div style="width: 100%; display: flex; justify-content: center; margin: 3rem 0;">
-                <figure style="width: 100%; max-width: 1200px; margin: 0; text-align: center;">
-                    <img src="figs/score_pipeline.jpg" alt="Inductivist Turkey Dilemma" style="width: 100%; height: auto; display: block; margin: 0 auto; border-radius: 8px; box-shadow: 0 4px 15px rgba(0,0,0,0.08);">
-                    
-                    <!-- 图片说明文字 -->
-                    <figcaption style="font-size: 0.95rem; color: #555; margin-top: 15px; line-height: 1.5; text-align: left; padding: 0 10px;">
-                        <strong>Figure 3: VLM-based scoring pipeline.</strong> Our proposed multi-dimensional scoring pipeline, featuring a sequential thresholding mechanism (<i>S<sub>L1</sub> &ge; 0.5</i>) and metrics-Prior Resistance Rate (PRR) and Reasoning Retention Rate (RRR).
-                    </figcaption>
-                </figure>
-            </div>
+            <!-- 直接在 figure 上使用 l-page，并用 max-width 控制大小，margin: 3rem auto 保证居中 -->
+            <figure class="l-page" style="max-width: 1000px; margin: 3rem auto;">
+                <img src="figs/score_pipeline.jpg" alt="VLM-based scoring pipeline" style="width: 100%; height: auto; display: block; border-radius: 8px; box-shadow: 0 4px 15px rgba(0,0,0,0.08);">
+                
+                <!-- 图片说明文字 -->
+                <figcaption style="font-size: 0.95rem; color: #555; margin-top: 15px; line-height: 1.5; text-align: left;">
+                    <strong>Figure 3: VLM-based scoring pipeline.</strong> Our proposed multi-dimensional scoring pipeline, featuring a sequential thresholding mechanism (<i>S<sub>L1</sub> &ge; 0.5</i>) and metrics-Prior Resistance Rate (PRR) and Reasoning Retention Rate (RRR).
+                </figcaption>
+            </figure>
+
 
 
             <!-- Key Results 章节 -->
