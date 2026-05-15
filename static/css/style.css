@@ -2030,25 +2030,34 @@ figure img {
     display: flex;
     justify-content: center;
     gap: 15px;
-    flex-wrap: wrap;
+    flex-wrap: nowrap; /* 【关键修改1】强制不换行 */
     margin-bottom: 15px;
+    width: 100%;
 }
+
 .nav-btn {
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    background-color: #eef6ff; /* 浅蓝色背景 */
-    border: 2px solid #5b9bd5; /* 蓝色边框 */
+    background-color: #eef6ff; 
+    border: 2px solid #5b9bd5; 
     border-radius: 12px;
-    padding: 15px 20px;
+    padding: 15px 10px; /* 稍微减小了左右内边距 */
     text-decoration: none !important;
     color: #333;
     font-weight: 600;
     transition: all 0.2s ease;
-    min-width: 180px;
+    
+    /* 【关键修改2】让按钮自适应宽度，不再写死 */
+    flex: 1; 
+    min-width: 0; 
+    box-sizing: border-box; 
+    
     box-shadow: 0 2px 4px rgba(0,0,0,0.05);
 }
+
+/* 下面的悬浮效果保持你原来的不变 */
 .nav-btn i {
     font-size: 1.5rem;
     margin-bottom: 8px;
@@ -2063,6 +2072,7 @@ figure img {
 .nav-btn:hover i {
     color: #fff;
 }
+
 .nav-hint {
     display: inline-block;
     padding: 10px 20px;
