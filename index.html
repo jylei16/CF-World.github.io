@@ -415,7 +415,8 @@
             <!-- ==========================================
                  SECTION 3: Why Models Fail
             =========================================== -->
-            <h2 class="text">3. Why Models Fail: A Decoupling Perspective</h2>
+            <!-- 添加了 id="decoupling" 以便导航栏跳转 -->
+            <h2 id="decoupling" class="text">3. Why Models Fail: A Decoupling Perspective</h2>
             <p class="text">
                 Our mechanistic investigation reveals that the degradation stems from a fundamental inability to decouple. Because these models primarily learn pixel co-occurrences, they struggle to separate independent causal variables (logical reasoning) and basic attribute modules (visual recombination).
             </p>
@@ -437,12 +438,20 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr><td style="text-align: left;">Z-image</td><td class="highlight-closed">0.61</td><td class="highlight-closed">0.53</td><td>0.98</td><td>0.89</td><td>0.38</td><td>0.43</td></tr>
-                        <tr><td style="text-align: left;">FLUX.2-dev</td><td class="highlight-open">0.53</td><td class="highlight-open">0.52</td><td class="highlight-closed">0.99</td><td class="highlight-closed">0.90</td><td class="highlight-open">0.42</td><td class="highlight-closed">0.51</td></tr>
+                        <tr><td style="text-align: left;">SANA 1.5</td><td>0.31</td><td>0.30</td><td>0.94</td><td>0.83</td><td>0.36</td><td>0.37</td></tr>
+                        <tr><td style="text-align: left;">Janus-Pro-7B</td><td>0.19</td><td>0.07</td><td>0.97</td><td>0.83</td><td>0.29</td><td>0.30</td></tr>
+                        <tr><td style="text-align: left;">Show-o2</td><td>0.39</td><td>0.37</td><td>0.92</td><td>0.80</td><td>0.32</td><td>0.37</td></tr>
+                        <tr><td style="text-align: left;">Z-image</td><td class="highlight-closed">0.61</td><td class="highlight-closed">0.53</td><td>0.98</td><td class="highlight-open">0.89</td><td>0.38</td><td>0.43</td></tr>
+                        <tr><td style="text-align: left;">Lumina-DiMOO</td><td>0.38</td><td>0.34</td><td>0.97</td><td>0.82</td><td>0.33</td><td>0.35</td></tr>
+                        <tr><td style="text-align: left;">BAGEL</td><td>0.29</td><td>0.22</td><td class="highlight-open">0.98</td><td>0.83</td><td>0.29</td><td>0.31</td></tr>
                         <tr><td style="text-align: left;">BAGEL-CoT</td><td>0.38</td><td>0.32</td><td>0.97</td><td class="highlight-closed">0.90</td><td class="highlight-closed">0.43</td><td class="highlight-open">0.44</td></tr>
+                        <tr><td style="text-align: left;">OmniGen2</td><td>0.33</td><td>0.25</td><td>0.96</td><td>0.81</td><td>0.32</td><td>0.35</td></tr>
+                        <tr><td style="text-align: left;">FLUX.2-dev</td><td class="highlight-open">0.53</td><td class="highlight-open">0.52</td><td class="highlight-closed">0.99</td><td class="highlight-closed">0.90</td><td class="highlight-open">0.42</td><td class="highlight-closed">0.51</td></tr>
+                        <tr><td style="text-align: left;">Qwen-Image</td><td>0.40</td><td>0.40</td><td>0.97</td><td>0.86</td><td>0.35</td><td>0.37</td></tr>
                     </tbody>
                 </table>
             </div>
+
             
             <!-- ==========================================
                  SECTION 4: BibTeX
@@ -466,7 +475,7 @@
                 const imageMap = {
                     "Classic Mechanics": "figs/classic_mechanics.jpg",
                     "Optics": "figs/optics.jpg",
-                    "Thermodynamics": "figs/thermodynamics.fpg",
+                    "Thermodynamics": "figs/thermodynamics.jpg",
                     "Astronomy": "figs/Astronomy.jpg",
                     "Electromagnetism": "figs/Electromagnetism.jpg",
                     "Chemical": "figs/Chemical.jpg",
