@@ -360,27 +360,56 @@
                 </table>
             </div>
         
-            <!-- 交互式定性对比部分 -->
+            <!-- 交互式定性对比部分 (新版动态加载) -->
             <h3 class="text" style="margin-top: 3rem; margin-bottom: 15px;">Interactive Qualitative Comparison</h3>
             <p class="text">
-                Select a model below to see how it responds to the counterfactual prompt: <em>"If water surface tension was infinitely strong, draw a person trying to wade in a pool..."</em> Notice how most models fail to decouple their training priors and default to real-world factual representations.
+                请在下方选择测试场景和模型，查看该模型在三个反事实层级（L1事实、L2显式、L3隐式）下的生成结果。观察模型是否能打破现实先验。
             </p>
             
-            <div class="interactive-viewer" style="max-width: 1000px; margin: 0 auto;">
-                <div class="viewer-controls" id="model-controls">
-                    <button class="model-btn active" onclick="switchImage('img-flux', this)">FLUX.2-dev</button>
-                    <button class="model-btn" onclick="switchImage('img-janus', this)">Janus-Pro-7B</button>
-                    <button class="model-btn" onclick="switchImage('img-gpt', this)">GPT-Image-1.5</button>
-                    <button class="model-btn" onclick="switchImage('img-nano', this)">Nano Banana Pro</button>
+            <div class="benchmark-viewer" style="max-width: 1000px; margin: 0 auto;">
+                <!-- 1. 场景选择区 -->
+                <div class="controls-group">
+                    <strong style="display: block; margin-bottom: 8px; font-size: 1.1em;">1. 选择测试场景：</strong>
+                    <div id="scenario-buttons" class="button-container"></div>
                 </div>
-                <div class="viewer-display">
-                    <!-- 请确保这些图片路径正确 -->
-                    <img id="img-flux" class="viewer-img active" src="figs/fig4_flux.png" alt="FLUX Result">
-                    <img id="img-janus" class="viewer-img" src="figs/fig4_janus.png" alt="Janus Result">
-                    <img id="img-gpt" class="viewer-img" src="figs/fig4_gpt.png" alt="GPT Result">
-                    <img id="img-nano" class="viewer-img" src="figs/fig4_nano.png" alt="Nano Banana Result">
+
+                <!-- 2. 模型选择区 -->
+                <div class="controls-group" style="margin-top: 15px;">
+                    <strong style="display: block; margin-bottom: 8px; font-size: 1.1em;">2. 选择生成模型：</strong>
+                    <div id="model-buttons" class="button-container"></div>
+                </div>
+
+                <!-- 3. 内容展示区 -->
+                <div id="display-area" style="margin-top: 30px;">
+                    <!-- L1 展示行 -->
+                    <div class="result-row">
+                        <div class="prompt-col">
+                            <span class="level-badge factual">L1: 事实生成 (Factual)</span>
+                            <p id="text-l1" class="prompt-text"></p>
+                        </div>
+                        <div class="image-col"><img id="img-l1" src="" alt="L1 结果图"></div>
+                    </div>
+
+                    <!-- L2 展示行 -->
+                    <div class="result-row">
+                        <div class="prompt-col">
+                            <span class="level-badge explicit">L2: 显式反事实 (Explicit)</span>
+                            <p id="text-l2" class="prompt-text"></p>
+                        </div>
+                        <div class="image-col"><img id="img-l2" src="" alt="L2 结果图"></div>
+                    </div>
+
+                    <!-- L3 展示行 -->
+                    <div class="result-row">
+                        <div class="prompt-col">
+                            <span class="level-badge implicit">L3: 隐式反事实 (Implicit)</span>
+                            <p id="text-l3" class="prompt-text"></p>
+                        </div>
+                        <div class="image-col"><img id="img-l3" src="" alt="L3 结果图"></div>
+                    </div>
                 </div>
             </div>
+
 
 
             
@@ -426,28 +455,6 @@
               journal={Submitted to NeurIPS},
               year={2026}
             }</code></pre>
-            
-            <!-- 交互组件的 JavaScript 脚本 -->
-            <script>
-                document.addEventListener('DOMContentLoaded', function() {
-                    const buttons = document.querySelectorAll('.model-btn');
-                    const images = document.querySelectorAll('.viewer-display img');
-            
-                    buttons.forEach(btn => {
-                        btn.addEventListener('click', () => {
-                            // 移除所有按钮的 active 状态
-                            buttons.forEach(b => b.classList.remove('active'));
-                            // 隐藏所有图片
-                            images.forEach(img => img.classList.remove('active'));
-                            
-                            // 激活当前点击的按钮和对应的图片
-                            btn.classList.add('active');
-                            const targetId = btn.getAttribute('data-target');
-                            document.getElementById(targetId).classList.add('active');
-                        });
-                    });
-                });
-            </script>
 
         </div>
         </d-article>
@@ -579,24 +586,109 @@
                 }
             </script>
 
-        
+                    <!-- 新版交互组件的 JavaScript 脚本 -->
             <script>
-                // 切换交互式图片的函数
-                function switchImage(targetId, btnElement) {
-                    // 1. 移除所有按钮的 active 状态
-                    const buttons = document.querySelectorAll('.model-btn');
-                    buttons.forEach(btn => btn.classList.remove('active'));
-                    
-                    // 2. 给当前点击的按钮添加 active 状态
-                    btnElement.classList.add('active');
-                    
-                    // 3. 隐藏所有图片
-                    const images = document.querySelectorAll('.viewer-img');
-                    images.forEach(img => img.classList.remove('active'));
-                    
-                    // 4. 显示目标图片
-                    document.getElementById(targetId).classList.add('active');
+                // 1. 数据配置区
+                const modelsData = [
+                    { id: 'sana', name: 'SANA 1.5' },
+                    { id: 'janus', name: 'Janus-Pro-7B' },
+                    { id: 'show_o2', name: 'Show-o2' },
+                    { id: 'z_image', name: 'Z-image' },
+                    { id: 'lumina', name: 'Lumina-DiMOO' },
+                    { id: 'bagel', name: 'BAGEL' },
+                    { id: 'bagel_cot', name: 'BAGEL-CoT' },
+                    { id: 'omnigen2', name: 'OmniGen2' },
+                    { id: 'flux', name: 'FLUX.2-dev' },
+                    { id: 'qwen', name: 'Qwen-Image' },
+                    { id: 'nano', name: 'Nano Banana' },
+                    { id: 'nano_pro', name: 'Nano Banana Pro' },
+                    { id: 'gpt', name: 'GPT-Image-1.5' },
+                    { id: 'seedream', name: 'Seedream 5.0' }
+                ];
+    
+                const scenariosData = [
+                    {
+                        id: 'water',
+                        name: '水面张力场景',
+                        prompts: {
+                            l1: "一个人在普通的游泳池里涉水行走。",
+                            l2: "如果水的表面张力无限大，画一个试图在游泳池里涉水的人。",
+                            l3: "一个人在游泳池上行走，池中的液体表现得像坚硬的蹦床一样支撑着他。"
+                        }
+                    },
+                    {
+                        id: 'gravity',
+                        name: '反重力场景',
+                        prompts: {
+                            l1: "一个苹果从树枝上掉落，砸向地面。",
+                            l2: "如果重力是排斥物体的，画一个从树枝上脱落的苹果。",
+                            l3: "一个苹果从树枝上脱落，并违背常理地向上加速飞向天空。"
+                        }
+                    }
+                ];
+    
+                let currentScenarioId = scenariosData[0].id;
+                let currentModelId = modelsData[8].id; // 默认选中 FLUX
+    
+                // 2. 渲染与交互逻辑
+                function initBenchmarkViewer() {
+                    renderButtons();
+                    updateDisplay();
                 }
+    
+                function renderButtons() {
+                    const scenarioContainer = document.getElementById('scenario-buttons');
+                    const modelContainer = document.getElementById('model-buttons');
+    
+                    scenariosData.forEach(scenario => {
+                        const btn = document.createElement('button');
+                        btn.className = `btn ${scenario.id === currentScenarioId ? 'active' : ''}`;
+                        btn.innerText = scenario.name;
+                        btn.onclick = () => {
+                            currentScenarioId = scenario.id;
+                            updateActiveButtons('scenario-buttons', btn);
+                            updateDisplay();
+                        };
+                        scenarioContainer.appendChild(btn);
+                    });
+    
+                    modelsData.forEach(model => {
+                        const btn = document.createElement('button');
+                        btn.className = `btn ${model.id === currentModelId ? 'active' : ''}`;
+                        btn.innerText = model.name;
+                        btn.onclick = () => {
+                            currentModelId = model.id;
+                            updateActiveButtons('model-buttons', btn);
+                            updateDisplay();
+                        };
+                        modelContainer.appendChild(btn);
+                    });
+                }
+    
+                function updateActiveButtons(containerId, clickedBtn) {
+                    const container = document.getElementById(containerId);
+                    const buttons = container.getElementsByClassName('btn');
+                    for (let btn of buttons) {
+                        btn.classList.remove('active');
+                    }
+                    clickedBtn.classList.add('active');
+                }
+    
+                function updateDisplay() {
+                    const scenario = scenariosData.find(s => s.id === currentScenarioId);
+                    
+                    document.getElementById('text-l1').innerText = scenario.prompts.l1;
+                    document.getElementById('text-l2').innerText = scenario.prompts.l2;
+                    document.getElementById('text-l3').innerText = scenario.prompts.l3;
+    
+                    const basePath = `figs/${currentScenarioId}`;
+                    document.getElementById('img-l1').src = `${basePath}/${currentModelId}_l1.png`;
+                    document.getElementById('img-l2').src = `${basePath}/${currentModelId}_l2.png`;
+                    document.getElementById('img-l3').src = `${basePath}/${currentModelId}_l3.png`;
+                }
+    
+                // 确保 DOM 加载完成后初始化组件
+                document.addEventListener('DOMContentLoaded', initBenchmarkViewer);
             </script>
 
 
