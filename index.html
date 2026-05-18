@@ -642,52 +642,44 @@
                         return;
                     }
             
-                    const scenarioButtonsContainer = document.getElementById("scenario-buttons");
+                    const scenarioSelect = document.getElementById("scenario-select");
                     const modelButtonsContainer = document.getElementById("model-buttons");
             
-                    if (!scenarioButtonsContainer || !modelButtonsContainer) {
+                    if (!scenarioSelect || !modelButtonsContainer) {
                         console.error("Benchmark viewer containers not found.");
                         return;
                     }
             
-                    scenarioButtonsContainer.innerHTML = "";
+                    scenarioSelect.innerHTML = "";
                     modelButtonsContainer.innerHTML = "";
             
                     benchmarkData.scenarios.forEach((scenario, index) => {
-                        const button = document.createElement("button");
-                        button.className = "benchmark-btn scenario-btn";
-                        button.textContent = scenario.name || scenario.id;
-            
-                        button.addEventListener("click", () => {
-                            currentScenarioIndex = index;
-            
-                            document.querySelectorAll(".scenario-btn").forEach(btn => {
-                                btn.classList.remove("active");
-                            });
-                            button.classList.add("active");
-            
-                            const availableModels = Object.keys(scenario.images || {});
-                            if (!availableModels.includes(currentModel)) {
-                                currentModel = availableModels[0] || null;
-                            }
-            
-                            updateModelButtons();
-                            updateDisplay();
-                        });
-            
-                        scenarioButtonsContainer.appendChild(button);
+                        const option = document.createElement("option");
+                        option.value = index;
+                        option.textContent = scenario.name || scenario.id || `Scenario ${index + 1}`;
+                        scenarioSelect.appendChild(option);
                     });
             
                     currentScenarioIndex = 0;
+                    scenarioSelect.value = String(currentScenarioIndex);
             
-                    const firstScenario = benchmarkData.scenarios[0];
+                    const firstScenario = benchmarkData.scenarios[currentScenarioIndex];
                     const firstAvailableModels = Object.keys(firstScenario.images || {});
                     currentModel = firstAvailableModels[0] || null;
             
-                    const firstScenarioButton = document.querySelector(".scenario-btn");
-                    if (firstScenarioButton) {
-                        firstScenarioButton.classList.add("active");
-                    }
+                    scenarioSelect.addEventListener("change", () => {
+                        currentScenarioIndex = Number(scenarioSelect.value);
+            
+                        const scenario = benchmarkData.scenarios[currentScenarioIndex];
+                        const availableModels = Object.keys((scenario && scenario.images) || {});
+            
+                        if (!availableModels.includes(currentModel)) {
+                            currentModel = availableModels[0] || null;
+                        }
+            
+                        updateModelButtons();
+                        updateDisplay();
+                    });
             
                     updateModelButtons();
                     updateDisplay();
@@ -695,15 +687,30 @@
             
                 function updateModelButtons() {
                     const modelButtonsContainer = document.getElementById("model-buttons");
+            
+                    if (!modelButtonsContainer) {
+                        return;
+                    }
+            
                     modelButtonsContainer.innerHTML = "";
             
                     const scenario = benchmarkData.scenarios[currentScenarioIndex];
             
                     if (!scenario || !scenario.images) {
+                        currentModel = null;
                         return;
                     }
             
                     const availableModels = Object.keys(scenario.images);
+            
+                    if (availableModels.length === 0) {
+                        currentModel = null;
+                        return;
+                    }
+            
+                    if (!availableModels.includes(currentModel)) {
+                        currentModel = availableModels[0];
+                    }
             
                     availableModels.forEach(model => {
                         const button = document.createElement("button");
@@ -720,6 +727,7 @@
                             document.querySelectorAll(".model-btn").forEach(btn => {
                                 btn.classList.remove("active");
                             });
+            
                             button.classList.add("active");
             
                             updateDisplay();
@@ -733,14 +741,17 @@
                     const scenario = benchmarkData.scenarios[currentScenarioIndex];
             
                     if (!scenario) {
+                        clearDisplay();
                         return;
                     }
             
-                    document.getElementById("text-l1").textContent = scenario.prompt_l1 || "";
-                    document.getElementById("text-l2").textContent = scenario.prompt_l2 || "";
-                    document.getElementById("text-l3").textContent = scenario.prompt_l3 || "";
+                    setText("text-l1", scenario.prompt_l1 || "");
+                    setText("text-l2", scenario.prompt_l2 || "");
+                    setText("text-l3", scenario.prompt_l3 || "");
             
-                    const images = scenario.images && scenario.images[currentModel];
+                    const images = scenario.images && currentModel
+                        ? scenario.images[currentModel]
+                        : null;
             
                     if (!images) {
                         setImage("img-l1", "");
@@ -754,6 +765,16 @@
                     setImage("img-l3", images.l3);
                 }
             
+                function setText(elementId, text) {
+                    const element = document.getElementById(elementId);
+            
+                    if (!element) {
+                        return;
+                    }
+            
+                    element.textContent = text || "";
+                }
+            
                 function setImage(imgId, src) {
                     const img = document.getElementById(imgId);
             
@@ -764,24 +785,37 @@
                     img.onerror = null;
             
                     if (!src) {
-                        img.src = "";
+                        img.removeAttribute("src");
                         img.alt = "Image not available";
                         img.classList.add("image-missing");
                         return;
                     }
             
                     img.classList.remove("image-missing");
+                    img.alt = imgId.replace("img-", "").toUpperCase() + " 结果图";
                     img.src = src;
             
                     img.onerror = function () {
                         console.error("Failed to load image:", src);
+                        img.removeAttribute("src");
                         img.alt = "Image failed to load";
                         img.classList.add("image-missing");
                     };
                 }
             
+                function clearDisplay() {
+                    setText("text-l1", "");
+                    setText("text-l2", "");
+                    setText("text-l3", "");
+            
+                    setImage("img-l1", "");
+                    setImage("img-l2", "");
+                    setImage("img-l3", "");
+                }
+            
                 document.addEventListener("DOMContentLoaded", initBenchmarkViewer);
             </script>
+
 
 
     </body>
