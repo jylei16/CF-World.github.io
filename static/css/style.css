@@ -761,9 +761,8 @@ img {
   vertical-align: middle;
   max-width: 100%;
   height: auto;
-  image-rendering: -webkit-optimize-contrast;
-  image-rendering: crisp-edges;
 }
+
 
 
 /* Position the image container (needed to position the left and right arrows) */
@@ -1527,9 +1526,9 @@ iframe {
     width: 100%;
     height: auto;
     margin: 0 auto;
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
+    image-rendering: auto;
 }
+
 
 /* Ensure figures look crisp and maintain aspect ratio */
 figure img {
