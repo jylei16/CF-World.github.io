@@ -2331,19 +2331,25 @@ figure img {
     margin-top: 0;
 }
 
-@media (max-width: 768px) {
-    .result-row {
-        flex-direction: column;
-    }
-}
-
 .benchmark-viewer {
+    position: relative;
+    left: 50%;
     width: min(95vw, 1400px);
     max-width: 1400px;
-    margin-left: 50%;
     transform: translateX(-50%);
     padding: 24px;
     box-sizing: border-box;
+    border-radius: 18px;
+    background: #ffffff;
+    border: 1px solid #e5e7eb;
+    box-shadow: 0 8px 24px rgba(15, 23, 42, 0.06);
+}
+
+@media (max-width: 768px) {
+    .benchmark-viewer {
+        width: 96vw;
+        padding: 14px;
+    }
 }
 
 
