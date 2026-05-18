@@ -2523,10 +2523,10 @@ figure img {
     height: auto;
     max-height: none;
     object-fit: contain;
+    image-rendering: auto;
     border-radius: 10px;
-    border: 1px solid #e5e7eb;
-    background: #f8fafc;
 }
+
 
 /* 兼容旧结构，如果页面里还有 result-row，不至于炸版 */
 .result-row {
