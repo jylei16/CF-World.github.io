@@ -360,53 +360,80 @@
             </div>
         
             <!-- 交互式定性对比部分 (新版动态加载) -->
-            <h3 class="text" style="margin-top: 3rem; margin-bottom: 15px;">Interactive Qualitative Comparison</h3>
+            <h3 class="text" style="margin-top: 3rem; margin-bottom: 15px;">
+                Interactive Qualitative Comparison
+            </h3>
+            
             <p class="text">
                 请在下方选择测试场景和模型，查看该模型在三个反事实层级下的生成结果。
             </p>
-        
+            
             <div class="benchmark-viewer">
-                <div class="controls-group">
-                    <strong style="display: block; margin-bottom: 8px; font-size: 1.1em;">
-                        1. 选择测试场景：
-                    </strong>
-                    <div id="scenario-buttons" class="button-container"></div>
+                <div class="controls-panel">
+                    <div class="controls-group">
+                        <label for="scenario-select" class="control-label">
+                            1. 选择测试场景：
+                        </label>
+            
+                        <select id="scenario-select" class="scenario-select">
+                            <!-- JS 动态填充 options -->
+                        </select>
+                    </div>
+            
+                    <div class="controls-group">
+                        <strong class="control-label">
+                            2. 选择生成模型：
+                        </strong>
+            
+                        <div id="model-buttons" class="button-container"></div>
+                    </div>
                 </div>
-        
-                <div class="controls-group" style="margin-top: 15px;">
-                    <strong style="display: block; margin-bottom: 8px; font-size: 1.1em;">
-                        2. 选择生成模型：
-                    </strong>
-                    <div id="model-buttons" class="button-container"></div>
-                </div>
-        
-                <div id="display-area" style="margin-top: 30px;">
-                    <div class="result-row">
-                        <div class="prompt-col">
-                            <span class="level-badge factual">L1: 事实生成 (Factual)</span>
+            
+                <div id="display-area" class="comparison-grid">
+                    <div class="level-card level-card-l1">
+                        <div class="level-header">
+                            <span class="level-badge factual">
+                                L1: 事实生成 (Factual)
+                            </span>
+                        </div>
+            
+                        <div class="prompt-box">
                             <p id="text-l1" class="prompt-text"></p>
                         </div>
-                        <div class="image-col">
+            
+                        <div class="image-box">
                             <img id="img-l1" src="" alt="L1 结果图">
                         </div>
                     </div>
-        
-                    <div class="result-row">
-                        <div class="prompt-col">
-                            <span class="level-badge explicit">L2: 显式反事实 (Explicit)</span>
+            
+                    <div class="level-card level-card-l2">
+                        <div class="level-header">
+                            <span class="level-badge explicit">
+                                L2: 显式反事实 (Explicit)
+                            </span>
+                        </div>
+            
+                        <div class="prompt-box">
                             <p id="text-l2" class="prompt-text"></p>
                         </div>
-                        <div class="image-col">
+            
+                        <div class="image-box">
                             <img id="img-l2" src="" alt="L2 结果图">
                         </div>
                     </div>
-        
-                    <div class="result-row">
-                        <div class="prompt-col">
-                            <span class="level-badge implicit">L3: 隐式反事实 (Implicit)</span>
+            
+                    <div class="level-card level-card-l3">
+                        <div class="level-header">
+                            <span class="level-badge implicit">
+                                L3: 隐式反事实 (Implicit)
+                            </span>
+                        </div>
+            
+                        <div class="prompt-box">
                             <p id="text-l3" class="prompt-text"></p>
                         </div>
-                        <div class="image-col">
+            
+                        <div class="image-box">
                             <img id="img-l3" src="" alt="L3 结果图">
                         </div>
                     </div>
