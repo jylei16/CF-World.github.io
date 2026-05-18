@@ -2334,8 +2334,8 @@ figure img {
 .benchmark-viewer {
     position: relative;
     left: 50%;
-    width: min(95vw, 1400px);
-    max-width: 1400px;
+    width: min(95vw, 1280px);
+    max-width: 1280px;
     transform: translateX(-50%);
     padding: 24px;
     box-sizing: border-box;
@@ -2345,19 +2345,49 @@ figure img {
     box-shadow: 0 8px 24px rgba(15, 23, 42, 0.06);
 }
 
-@media (max-width: 768px) {
-    .benchmark-viewer {
-        width: 96vw;
-        padding: 14px;
-    }
+/* 顶部控制区域 */
+.controls-panel {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 18px;
+    width: 100%;
+    margin-bottom: 24px;
 }
-
 
 .controls-group {
     width: 100%;
-    margin-bottom: 18px;
+    margin-bottom: 0;
 }
 
+.control-label {
+    display: block;
+    margin-bottom: 8px;
+    font-size: 1.05em;
+    font-weight: 700;
+    color: #111827;
+}
+
+/* 场景下拉框 */
+.scenario-select {
+    width: 100%;
+    max-width: 520px;
+    padding: 9px 12px;
+    border: 1px solid #cbd5e1;
+    border-radius: 8px;
+    background: #ffffff;
+    color: #111827;
+    font-size: 14px;
+    line-height: 1.4;
+    cursor: pointer;
+    outline: none;
+}
+
+.scenario-select:focus {
+    border-color: #2f6fed;
+    box-shadow: 0 0 0 3px rgba(47, 111, 237, 0.16);
+}
+
+/* 模型按钮容器 */
 .button-container {
     display: flex;
     flex-wrap: wrap;
@@ -2366,60 +2396,65 @@ figure img {
 }
 
 .benchmark-btn {
-    padding: 6px 12px;
-    border: 1px solid #bbb;
-    border-radius: 6px;
-    background: #fff;
+    padding: 7px 13px;
+    border: 1px solid #cbd5e1;
+    border-radius: 999px;
+    background: #ffffff;
+    color: #334155;
     cursor: pointer;
     font-size: 14px;
+    line-height: 1.2;
+    transition: all 0.15s ease;
+}
+
+.benchmark-btn:hover {
+    border-color: #2f6fed;
+    color: #2f6fed;
+    background: #f8fbff;
 }
 
 .benchmark-btn.active {
     background: #2f6fed;
     color: white;
     border-color: #2f6fed;
+    box-shadow: 0 4px 10px rgba(47, 111, 237, 0.24);
 }
 
-.result-row {
+/* L1 / L2 / L3 横向三列 */
+.comparison-grid {
     display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 24px;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 18px;
     align-items: start;
-    margin-top: 24px;
-    padding: 20px;
-    border: 1px solid #ddd;
-    border-radius: 12px;
-    background: white;
-}
-
-.prompt-col {
-    min-width: 0;
-}
-
-.image-col {
     width: 100%;
-    text-align: center;
+    margin-top: 26px;
 }
 
-.image-col img {
-    max-width: 100%;
-    max-height: 520px;
-    object-fit: contain;
-    border-radius: 8px;
+/* 单个层级卡片 */
+.level-card {
+    min-width: 0;
+    padding: 16px;
+    border: 1px solid #e5e7eb;
+    border-radius: 14px;
+    background: #ffffff;
+    box-shadow: 0 4px 14px rgba(15, 23, 42, 0.04);
+    box-sizing: border-box;
 }
 
-.prompt-text {
-    font-size: 15px;
-    line-height: 1.6;
-    white-space: pre-wrap;
+.level-header {
+    margin-bottom: 10px;
 }
 
+/* 标签 */
 .level-badge {
     display: inline-block;
     padding: 5px 10px;
     border-radius: 999px;
-    font-weight: 600;
-    margin-bottom: 8px;
+    font-weight: 700;
+    font-size: 13px;
+    line-height: 1.3;
+    margin-bottom: 0;
+    white-space: normal;
 }
 
 .level-badge.factual {
@@ -2437,13 +2472,121 @@ figure img {
     color: #7e22ce;
 }
 
-@media (max-width: 900px) {
-    .result-row {
-        grid-template-columns: 1fr;
-    }
+/* Prompt 固定高度，超出滚动 */
+.prompt-box {
+    height: 150px;
+    overflow-y: auto;
+    padding: 11px 12px;
+    margin-bottom: 14px;
+    border-radius: 10px;
+    background: #f8fafc;
+    border: 1px solid #e2e8f0;
+    box-sizing: border-box;
+}
 
+/* 滚动条美化 */
+.prompt-box::-webkit-scrollbar {
+    width: 7px;
+}
+
+.prompt-box::-webkit-scrollbar-track {
+    background: #eef2f7;
+    border-radius: 999px;
+}
+
+.prompt-box::-webkit-scrollbar-thumb {
+    background: #cbd5e1;
+    border-radius: 999px;
+}
+
+.prompt-box::-webkit-scrollbar-thumb:hover {
+    background: #94a3b8;
+}
+
+.prompt-text {
+    margin: 0;
+    font-size: 14px;
+    line-height: 1.55;
+    color: #1f2937;
+    white-space: pre-wrap;
+    word-break: break-word;
+}
+
+/* 图片区域：保持原比例，不裁剪，不强行等高 */
+.image-box {
+    width: 100%;
+    text-align: center;
+}
+
+.image-box img {
+    display: block;
+    width: 100%;
+    height: auto;
+    max-height: none;
+    object-fit: contain;
+    border-radius: 10px;
+    border: 1px solid #e5e7eb;
+    background: #f8fafc;
+}
+
+/* 兼容旧结构，如果页面里还有 result-row，不至于炸版 */
+.result-row {
+    display: none;
+}
+
+/* 中等屏幕：仍尽量保持三列，但缩小间距 */
+@media (max-width: 1100px) {
     .benchmark-viewer {
         width: 96vw;
+        padding: 18px;
+    }
+
+    .comparison-grid {
+        gap: 12px;
+    }
+
+    .level-card {
         padding: 12px;
     }
+
+    .prompt-box {
+        height: 140px;
+    }
+
+    .level-badge {
+        font-size: 12px;
+        padding: 5px 8px;
+    }
 }
+
+/* 小屏幕：改为单列，避免三列太挤 */
+@media (max-width: 768px) {
+    .benchmark-viewer {
+        width: 96vw;
+        padding: 14px;
+        border-radius: 14px;
+    }
+
+    .comparison-grid {
+        grid-template-columns: 1fr;
+        gap: 16px;
+    }
+
+    .scenario-select {
+        max-width: 100%;
+    }
+
+    .prompt-box {
+        height: 130px;
+    }
+
+    .button-container {
+        gap: 7px;
+    }
+
+    .benchmark-btn {
+        font-size: 13px;
+        padding: 7px 11px;
+    }
+}
+
