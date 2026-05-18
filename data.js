@@ -858,7 +858,7 @@ const benchmarkData = {
                     "l3": "https://huggingface.co/datasets/jyjyjyjy/cf_results/resolve/main/figs/qwen-image/Geography/3_l3.png"
                 }
             }
-        }
+        },
         {
             "id": "Geography_16",
             "name": "Geography - Case 5",
