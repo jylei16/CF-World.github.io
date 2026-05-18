@@ -362,49 +362,53 @@
             <!-- 交互式定性对比部分 (新版动态加载) -->
             <h3 class="text" style="margin-top: 3rem; margin-bottom: 15px;">Interactive Qualitative Comparison</h3>
             <p class="text">
-                请在下方选择测试场景和模型，查看该模型在三个反事实层级（L1事实、L2显式、L3隐式）下的生成结果。观察模型是否能打破现实先验。
+                请在下方选择测试场景和模型，查看该模型在三个反事实层级下的生成结果。
             </p>
-            
+        
             <div class="benchmark-viewer" style="max-width: 1000px; margin: 0 auto;">
-                <!-- 1. 场景选择区 -->
                 <div class="controls-group">
-                    <strong style="display: block; margin-bottom: 8px; font-size: 1.1em;">1. 选择测试场景：</strong>
+                    <strong style="display: block; margin-bottom: 8px; font-size: 1.1em;">
+                        1. 选择测试场景：
+                    </strong>
                     <div id="scenario-buttons" class="button-container"></div>
                 </div>
-
-                <!-- 2. 模型选择区 -->
+        
                 <div class="controls-group" style="margin-top: 15px;">
-                    <strong style="display: block; margin-bottom: 8px; font-size: 1.1em;">2. 选择生成模型：</strong>
+                    <strong style="display: block; margin-bottom: 8px; font-size: 1.1em;">
+                        2. 选择生成模型：
+                    </strong>
                     <div id="model-buttons" class="button-container"></div>
                 </div>
-
-                <!-- 3. 内容展示区 -->
+        
                 <div id="display-area" style="margin-top: 30px;">
-                    <!-- L1 展示行 -->
                     <div class="result-row">
                         <div class="prompt-col">
                             <span class="level-badge factual">L1: 事实生成 (Factual)</span>
                             <p id="text-l1" class="prompt-text"></p>
                         </div>
-                        <div class="image-col"><img id="img-l1" src="" alt="L1 结果图"></div>
+                        <div class="image-col">
+                            <img id="img-l1" src="" alt="L1 结果图">
+                        </div>
                     </div>
-
-                    <!-- L2 展示行 -->
+        
                     <div class="result-row">
                         <div class="prompt-col">
                             <span class="level-badge explicit">L2: 显式反事实 (Explicit)</span>
                             <p id="text-l2" class="prompt-text"></p>
                         </div>
-                        <div class="image-col"><img id="img-l2" src="" alt="L2 结果图"></div>
+                        <div class="image-col">
+                            <img id="img-l2" src="" alt="L2 结果图">
+                        </div>
                     </div>
-
-                    <!-- L3 展示行 -->
+        
                     <div class="result-row">
                         <div class="prompt-col">
                             <span class="level-badge implicit">L3: 隐式反事实 (Implicit)</span>
                             <p id="text-l3" class="prompt-text"></p>
                         </div>
-                        <div class="image-col"><img id="img-l3" src="" alt="L3 结果图"></div>
+                        <div class="image-col">
+                            <img id="img-l3" src="" alt="L3 结果图">
+                        </div>
                     </div>
                 </div>
             </div>
@@ -594,109 +598,162 @@
                 }
             </script>
 
-                    <!-- 新版交互组件的 JavaScript 脚本 -->
+            <script src="data.js"></script>
+
             <script>
-                // 1. 数据配置区
-                const modelsData = [
-                    { id: 'sana', name: 'SANA 1.5' },
-                    { id: 'janus', name: 'Janus-Pro-7B' },
-                    { id: 'show_o2', name: 'Show-o2' },
-                    { id: 'z_image', name: 'Z-image' },
-                    { id: 'lumina', name: 'Lumina-DiMOO' },
-                    { id: 'bagel', name: 'BAGEL' },
-                    { id: 'bagel_cot', name: 'BAGEL-CoT' },
-                    { id: 'omnigen2', name: 'OmniGen2' },
-                    { id: 'flux', name: 'FLUX.2-dev' },
-                    { id: 'qwen', name: 'Qwen-Image' },
-                    { id: 'nano', name: 'Nano Banana' },
-                    { id: 'nano_pro', name: 'Nano Banana Pro' },
-                    { id: 'gpt', name: 'GPT-Image-1.5' },
-                    { id: 'seedream', name: 'Seedream 5.0' }
-                ];
-    
-                const scenariosData = [
-                    {
-                        id: 'water',
-                        name: '水面张力场景',
-                        prompts: {
-                            l1: "一个人在普通的游泳池里涉水行走。",
-                            l2: "如果水的表面张力无限大，画一个试图在游泳池里涉水的人。",
-                            l3: "一个人在游泳池上行走，池中的液体表现得像坚硬的蹦床一样支撑着他。"
-                        }
-                    },
-                    {
-                        id: 'gravity',
-                        name: '反重力场景',
-                        prompts: {
-                            l1: "一个苹果从树枝上掉落，砸向地面。",
-                            l2: "如果重力是排斥物体的，画一个从树枝上脱落的苹果。",
-                            l3: "一个苹果从树枝上脱落，并违背常理地向上加速飞向天空。"
-                        }
-                    }
-                ];
-    
-                let currentScenarioId = scenariosData[0].id;
-                let currentModelId = modelsData[8].id; // 默认选中 FLUX
-    
-                // 2. 渲染与交互逻辑
+                let currentScenarioIndex = 0;
+                let currentModel = null;
+            
                 function initBenchmarkViewer() {
-                    renderButtons();
+                    if (typeof benchmarkData === "undefined") {
+                        console.error("benchmarkData is not loaded. Please check data.js.");
+                        return;
+                    }
+            
+                    if (!benchmarkData.scenarios || benchmarkData.scenarios.length === 0) {
+                        console.error("No scenarios found in benchmarkData.");
+                        return;
+                    }
+            
+                    const scenarioButtonsContainer = document.getElementById("scenario-buttons");
+                    const modelButtonsContainer = document.getElementById("model-buttons");
+            
+                    if (!scenarioButtonsContainer || !modelButtonsContainer) {
+                        console.error("Benchmark viewer containers not found.");
+                        return;
+                    }
+            
+                    scenarioButtonsContainer.innerHTML = "";
+                    modelButtonsContainer.innerHTML = "";
+            
+                    benchmarkData.scenarios.forEach((scenario, index) => {
+                        const button = document.createElement("button");
+                        button.className = "benchmark-btn scenario-btn";
+                        button.textContent = scenario.name || scenario.id;
+            
+                        button.addEventListener("click", () => {
+                            currentScenarioIndex = index;
+            
+                            document.querySelectorAll(".scenario-btn").forEach(btn => {
+                                btn.classList.remove("active");
+                            });
+                            button.classList.add("active");
+            
+                            const availableModels = Object.keys(scenario.images || {});
+                            if (!availableModels.includes(currentModel)) {
+                                currentModel = availableModels[0] || null;
+                            }
+            
+                            updateModelButtons();
+                            updateDisplay();
+                        });
+            
+                        scenarioButtonsContainer.appendChild(button);
+                    });
+            
+                    currentScenarioIndex = 0;
+            
+                    const firstScenario = benchmarkData.scenarios[0];
+                    const firstAvailableModels = Object.keys(firstScenario.images || {});
+                    currentModel = firstAvailableModels[0] || null;
+            
+                    const firstScenarioButton = document.querySelector(".scenario-btn");
+                    if (firstScenarioButton) {
+                        firstScenarioButton.classList.add("active");
+                    }
+            
+                    updateModelButtons();
                     updateDisplay();
                 }
-    
-                function renderButtons() {
-                    const scenarioContainer = document.getElementById('scenario-buttons');
-                    const modelContainer = document.getElementById('model-buttons');
-    
-                    scenariosData.forEach(scenario => {
-                        const btn = document.createElement('button');
-                        btn.className = `btn ${scenario.id === currentScenarioId ? 'active' : ''}`;
-                        btn.innerText = scenario.name;
-                        btn.onclick = () => {
-                            currentScenarioId = scenario.id;
-                            updateActiveButtons('scenario-buttons', btn);
-                            updateDisplay();
-                        };
-                        scenarioContainer.appendChild(btn);
-                    });
-    
-                    modelsData.forEach(model => {
-                        const btn = document.createElement('button');
-                        btn.className = `btn ${model.id === currentModelId ? 'active' : ''}`;
-                        btn.innerText = model.name;
-                        btn.onclick = () => {
-                            currentModelId = model.id;
-                            updateActiveButtons('model-buttons', btn);
-                            updateDisplay();
-                        };
-                        modelContainer.appendChild(btn);
-                    });
-                }
-    
-                function updateActiveButtons(containerId, clickedBtn) {
-                    const container = document.getElementById(containerId);
-                    const buttons = container.getElementsByClassName('btn');
-                    for (let btn of buttons) {
-                        btn.classList.remove('active');
+            
+                function updateModelButtons() {
+                    const modelButtonsContainer = document.getElementById("model-buttons");
+                    modelButtonsContainer.innerHTML = "";
+            
+                    const scenario = benchmarkData.scenarios[currentScenarioIndex];
+            
+                    if (!scenario || !scenario.images) {
+                        return;
                     }
-                    clickedBtn.classList.add('active');
+            
+                    const availableModels = Object.keys(scenario.images);
+            
+                    availableModels.forEach(model => {
+                        const button = document.createElement("button");
+                        button.className = "benchmark-btn model-btn";
+                        button.textContent = model;
+            
+                        if (model === currentModel) {
+                            button.classList.add("active");
+                        }
+            
+                        button.addEventListener("click", () => {
+                            currentModel = model;
+            
+                            document.querySelectorAll(".model-btn").forEach(btn => {
+                                btn.classList.remove("active");
+                            });
+                            button.classList.add("active");
+            
+                            updateDisplay();
+                        });
+            
+                        modelButtonsContainer.appendChild(button);
+                    });
                 }
-    
+            
                 function updateDisplay() {
-                    const scenario = scenariosData.find(s => s.id === currentScenarioId);
-                    
-                    document.getElementById('text-l1').innerText = scenario.prompts.l1;
-                    document.getElementById('text-l2').innerText = scenario.prompts.l2;
-                    document.getElementById('text-l3').innerText = scenario.prompts.l3;
-    
-                    const basePath = `figs/${currentScenarioId}`;
-                    document.getElementById('img-l1').src = `${basePath}/${currentModelId}_l1.png`;
-                    document.getElementById('img-l2').src = `${basePath}/${currentModelId}_l2.png`;
-                    document.getElementById('img-l3').src = `${basePath}/${currentModelId}_l3.png`;
+                    const scenario = benchmarkData.scenarios[currentScenarioIndex];
+            
+                    if (!scenario) {
+                        return;
+                    }
+            
+                    document.getElementById("text-l1").textContent = scenario.prompt_l1 || "";
+                    document.getElementById("text-l2").textContent = scenario.prompt_l2 || "";
+                    document.getElementById("text-l3").textContent = scenario.prompt_l3 || "";
+            
+                    const images = scenario.images && scenario.images[currentModel];
+            
+                    if (!images) {
+                        setImage("img-l1", "");
+                        setImage("img-l2", "");
+                        setImage("img-l3", "");
+                        return;
+                    }
+            
+                    setImage("img-l1", images.l1);
+                    setImage("img-l2", images.l2);
+                    setImage("img-l3", images.l3);
                 }
-    
-                // 确保 DOM 加载完成后初始化组件
-                document.addEventListener('DOMContentLoaded', initBenchmarkViewer);
+            
+                function setImage(imgId, src) {
+                    const img = document.getElementById(imgId);
+            
+                    if (!img) {
+                        return;
+                    }
+            
+                    img.onerror = null;
+            
+                    if (!src) {
+                        img.src = "";
+                        img.alt = "Image not available";
+                        img.classList.add("image-missing");
+                        return;
+                    }
+            
+                    img.classList.remove("image-missing");
+                    img.src = src;
+            
+                    img.onerror = function () {
+                        console.error("Failed to load image:", src);
+                        img.alt = "Image failed to load";
+                        img.classList.add("image-missing");
+                    };
+                }
+            
+                document.addEventListener("DOMContentLoaded", initBenchmarkViewer);
             </script>
 
 
