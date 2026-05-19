@@ -585,7 +585,7 @@
                             itemStyle: { borderColor: '#fff', borderWidth: 2 },
                             emphasis: { scale: false },
                             data: [
-                                { name: 'Physics', value: 422, itemStyle: { color: '#2e75b6' }, label: { position: 'inside', formatter: 'Physics\n(285)', color: '#fff', fontSize: 18, fontWeight: 'bold' } },
+                                { name: 'Physics', value: 422, itemStyle: { color: '#2e75b6' }, label: { position: 'inside', formatter: 'Physics\n(285)', color: '#fff', fontSize: 15, fontWeight: 'bold' } },
                                 // 左半边的透明占位符
                                 { name: 'Rest_Placeholder', value: 393, itemStyle: { color: 'transparent', borderWidth: 0 }, emphasis: { disabled: true }, tooltip: { show: false }, label: { show: false } }
                             ]
@@ -599,14 +599,60 @@
                             itemStyle: { borderColor: '#fff', borderWidth: 2 },
                             emphasis: { scale: false },
                             data: [
-                                { name: 'Classic Mechanics', value: 95, itemStyle: { color: '#1f4e79' }, label: { position: 'inside', formatter: '{b}\n({c})', color: '#fff', fontSize: 11 } },
-                                { name: 'Optics', value: 102, itemStyle: { color: '#2a6293' }, label: { position: 'inside', formatter: '{b}\n({c})', color: '#fff', fontSize: 11 } },
-                                { name: 'Thermodynamics', value: 95, itemStyle: { color: '#3a82c4' }, label: { position: 'inside', formatter: '{b}\n({c})', color: '#fff', fontSize: 11 } },
-                                { name: 'Astronomy', value: 75, itemStyle: { color: '#6fa6d6' }, label: { position: 'inside', formatter: '{b}\n({c})', color: '#fff', fontSize: 11 } },
-                                { name: 'Electromagnetism', value: 55, itemStyle: { color: '#9bc2e6' }, label: { position: 'outside', formatter: '{b}\n({c})', color: '#6c87a1', fontSize: 12, fontWeight: 'bold' }, labelLine: { show: true, length: 15, length2: 40, lineStyle: { color: '#9bc2e6', width: 2 } } },
+                                { 
+                                    name: 'Classic Mechanics', 
+                                    value: 95, 
+                                    itemStyle: { color: '#1f4e79' }, 
+                                    label: { 
+                                        position: 'inside', 
+                                        // 将 {b} 替换为手动换行的文本
+                                        formatter: 'Classic\nMechanics\n({c})', 
+                                        color: '#fff', 
+                                        fontSize: 11 
+                                    } 
+                                },
+                                { 
+                                    name: 'Optics', 
+                                    value: 102, 
+                                    itemStyle: { color: '#2a6293' }, 
+                                    label: { position: 'inside', formatter: '{b}\n({c})', color: '#fff', fontSize: 11 } 
+                                },
+                                { 
+                                    name: 'Thermodynamics', 
+                                    value: 95, 
+                                    itemStyle: { color: '#3a82c4' }, 
+                                    label: { 
+                                        position: 'inside', 
+                                        // 长单词用连字符拆分并换行
+                                        formatter: 'Thermo-\ndynamics\n({c})', 
+                                        color: '#fff', 
+                                        fontSize: 11 
+                                    } 
+                                },
+                                { 
+                                    name: 'Astronomy', 
+                                    value: 75, 
+                                    itemStyle: { color: '#6fa6d6' }, 
+                                    label: { position: 'inside', formatter: '{b}\n({c})', color: '#fff', fontSize: 11 } 
+                                },
+                                { 
+                                    name: 'Electromagnetism', 
+                                    value: 55, 
+                                    itemStyle: { color: '#9bc2e6' }, 
+                                    label: { position: 'outside', formatter: '{b}\n({c})', color: '#6c87a1', fontSize: 12, fontWeight: 'bold' }, 
+                                    labelLine: { show: true, length: 15, length2: 40, lineStyle: { color: '#9bc2e6', width: 2 } } 
+                                },
                                 // 左半边的透明占位符
-                                { name: 'Rest_Placeholder', value: 393, itemStyle: { color: 'transparent', borderWidth: 0 }, emphasis: { disabled: true }, tooltip: { show: false }, label: { show: false } }
+                                { 
+                                    name: 'Rest_Placeholder', 
+                                    value: 393, 
+                                    itemStyle: { color: 'transparent', borderWidth: 0 }, 
+                                    emphasis: { disabled: true }, 
+                                    tooltip: { show: false }, 
+                                    label: { show: false } 
+                                }
                             ]
+
                         }
                     ]
                 };
