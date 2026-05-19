@@ -244,11 +244,6 @@
             <p class="text">
                 At its core, CF-World is built upon <strong>1,091 fundamental scientific principles</strong>, which are systematically expanded into <strong>3,273 meticulously crafted prompts</strong>. To ensure a comprehensive evaluation of objective world knowledge, the dataset spans eight distinct disciplines:
             </p>
-            <ul class="text" style="margin-bottom: 1.5rem; line-height: 1.6;">
-                <li><strong>Natural Sciences:</strong> Physics (including Classic Mechanics, Optics, and Thermodynamics), Chemistry, and Biology.</li>
-                <li><strong>Earth & Space Sciences:</strong> Astronomy and Geography.</li>
-                <li><strong>Advanced & Social Dynamics:</strong> Electromagnetism and Sociological theories.</li>
-            </ul>
             
             <h3 class="text" style="margin-bottom: 0.5rem;">The Three-Level Progressive Prompting Design</h3>
             <p class="text">
@@ -260,10 +255,6 @@
                 <li><strong>Implicit Counterfactual (L3) — Causal Deduction:</strong> Presents only the altered premise without providing the visual answer (e.g., <em>"If wood were denser than water, draw a piece of wood in water."</em>). Here, the model must autonomously deduce the causal chain and render the correct counterfactual state without any visual hand-holding.</li>
             </ul>
             
-            <h3 class="text" style="margin-bottom: 0.5rem;">Isolating Rendering from Reasoning</h3>
-            <p class="text">
-                This progressive architecture is not merely a classification system; it is a highly sensitive diagnostic tool. By comparing a model's performance across these levels—specifically measuring the performance gap between L2 and L3—we can precisely quantify its reasoning decay. This design acts as a strict control variable method, effectively isolating a model's ability to draw unusual pixel combinations (visual rendering) from its capacity to understand <em>why</em> those pixels should change (logical reasoning).
-            </p>
             <!-- 旭日图容器 -->
             <div style="width: 100%; display: flex; flex-direction: column; align-items: center; margin: 3rem 0;">
                 <h3 style="text-align: center; margin-bottom: 10px;">Data Distribution & Prompt Examples</h3>
