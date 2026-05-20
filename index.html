@@ -299,25 +299,25 @@
             </p>
             <ul class="text" style="margin-bottom: 20px; padding-left: 20px;">
                 <li style="margin-bottom: 8px;">
-                    <strong>Visual Integrity (Weight 1-3):</strong> Evaluates fundamental, style-agnostic technical image quality (e.g., sharpness, anatomy) as a basic viability threshold.
+                    <strong>Visual Integrity:</strong> Evaluates fundamental, style-agnostic technical image quality (e.g., sharpness, anatomy) as a basic viability threshold.
                 </li>
                 <li style="margin-bottom: 8px;">
-                    <strong>Assessment Point (Weight 12-16):</strong> The primary ground truth. It strictly verifies whether the main subject adheres to the specific factual or counterfactual rule requested by the prompt.
+                    <strong>Assessment Point:</strong> The primary ground truth. It strictly verifies whether the main subject adheres to the specific factual or counterfactual rule requested by the prompt.
                 </li>
                 <li style="margin-bottom: 8px;">
-                    <strong>Logic Consistency (Weight 7-9):</strong> Verifies that the surrounding context and environment align globally with the established physical or counterfactual setting.
+                    <strong>Logic Consistency:</strong> Verifies that the surrounding context and environment align globally with the established physical or counterfactual setting.
                 </li>
             </ul>
             
             <h3 class="text" style="margin-top: 24px; margin-bottom: 12px; font-size: 1.2em;">
-                2. Score Calculation & Sequential Thresholding
+                2. Score Calculation
             </h3>
             <p class="text">
                 The base score for a single image is calculated via a weighted average of the three dimensions. To prevent false positives and ensure meaningful counterfactual assessment, CF-Eval employs a <strong>conditional thresholding mechanism</strong>. Counterfactual scores (L2 and L3) are only calculated if the model first demonstrates basic factual comprehension by meeting a baseline threshold on the factual prompt (L1 score ≥ 0.5). Otherwise, the counterfactual scores are strictly set to zero.
             </p>
             
             <h3 class="text" style="margin-top: 24px; margin-bottom: 12px; font-size: 1.2em;">
-                3. Novel Evaluation Metrics
+                3. Evaluation Metrics
             </h3>
             <p class="text">
                 To rigorously quantify a model's true reasoning capabilities without falling into the "low-base performance trap," we propose two novel metrics based on the geometric mean of absolute scores and relative ratios:
