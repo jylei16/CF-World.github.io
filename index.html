@@ -284,21 +284,53 @@
             <!-- CF-Eval 章节 -->
             <!-- Fixed ID to match navigation menu (#evaluation) -->
             <h2 class="text" id="evaluation" style="border-bottom: 1px solid #eaeaea; padding-bottom: 10px; margin-bottom: 20px; margin-top: 4rem;">
-                CF-Eval
+                CF-Eval: A VLM-Based Automated Evaluation Pipeline for Counterfactual Reasoning
             </h2>
             
             <p class="text">
-                We introduce <strong>CF-Eval</strong>, a VLM-based automated evaluation pipeline. To rigorously quantify models' true reasoning capabilities, we propose two novel metrics:
+                To comprehensively quantify the generative capabilities of models in both factual and counterfactual scenarios, we introduce <strong>CF-Eval</strong>, a robust automated evaluation pipeline driven by Vision-Language Models (VLMs). The pipeline evaluates generated images through a structured, three-step process:
             </p>
             
-            <ul class="text" style="margin-bottom: 40px; padding-left: 20px;">
-                <li style="margin-bottom: 12px;">
-                    <strong>Prior Resistance Rate (PRR):</strong> Measures a model's ability to overcome entrenched real-world priors when given explicit counterfactual instructions.
+            <h3 class="text" style="margin-top: 24px; margin-bottom: 12px; font-size: 1.2em;">
+                1. Multi-Dimensional Evaluation
+            </h3>
+            <p class="text">
+                The VLM assesses each generated image across three weighted dimensions to ensure a holistic evaluation:
+            </p>
+            <ul class="text" style="margin-bottom: 20px; padding-left: 20px;">
+                <li style="margin-bottom: 8px;">
+                    <strong>Visual Integrity (Weight 1-3):</strong> Evaluates fundamental, style-agnostic technical image quality (e.g., sharpness, anatomy) as a basic viability threshold.
                 </li>
-                <li>
-                    <strong>Reasoning Retention Rate (RRR):</strong> Assesses whether models can maintain reasoning-dependent counterfactual generation without explicit visual cues.
+                <li style="margin-bottom: 8px;">
+                    <strong>Assessment Point (Weight 12-16):</strong> The primary ground truth. It strictly verifies whether the main subject adheres to the specific factual or counterfactual rule requested by the prompt.
+                </li>
+                <li style="margin-bottom: 8px;">
+                    <strong>Logic Consistency (Weight 7-9):</strong> Verifies that the surrounding context and environment align globally with the established physical or counterfactual setting.
                 </li>
             </ul>
+            
+            <h3 class="text" style="margin-top: 24px; margin-bottom: 12px; font-size: 1.2em;">
+                2. Score Calculation & Sequential Thresholding
+            </h3>
+            <p class="text">
+                The base score for a single image is calculated via a weighted average of the three dimensions. To prevent false positives and ensure meaningful counterfactual assessment, CF-Eval employs a <strong>conditional thresholding mechanism</strong>. Counterfactual scores (L2 and L3) are only calculated if the model first demonstrates basic factual comprehension by meeting a baseline threshold on the factual prompt (L1 score ≥ 0.5). Otherwise, the counterfactual scores are strictly set to zero.
+            </p>
+            
+            <h3 class="text" style="margin-top: 24px; margin-bottom: 12px; font-size: 1.2em;">
+                3. Novel Evaluation Metrics
+            </h3>
+            <p class="text">
+                To rigorously quantify a model's true reasoning capabilities without falling into the "low-base performance trap," we propose two novel metrics based on the geometric mean of absolute scores and relative ratios:
+            </p>
+            <ul class="text" style="margin-bottom: 40px; padding-left: 20px;">
+                <li style="margin-bottom: 12px;">
+                    <strong>Prior Resistance Rate (PRR):</strong> Measures a model's ability to overcome entrenched real-world priors when given explicit counterfactual instructions. It isolates the performance shift from standard factual generation (L1) to explicit counterfactual generation (L2).
+                </li>
+                <li>
+                    <strong>Reasoning Retention Rate (RRR):</strong> Assesses the robustness of a model's causal reasoning by measuring how effectively it maintains counterfactual generation capabilities when explicit visual cues are removed (transitioning from L2 to L3).
+                </li>
+            </ul>
+
 
             <!-- 直接在 figure 上使用 l-page，并用 max-width 控制大小，margin: 3rem auto 保证居中 -->
             <figure class="l-page" style="max-width: 1000px; margin: 3rem auto;">
