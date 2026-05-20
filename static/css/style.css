@@ -4,7 +4,7 @@ body {
 
 .header-wrapper {
     /* Light gray-blue on left transitioning smoothly to darker blue on right, balanced blue coverage */
-    background: #FCF7F1;
+    background: #FAF5EE;
     /* background-image: url('../../figs/banner_bg.jpg'); */
     background-size: cover;
     background-position: center;
