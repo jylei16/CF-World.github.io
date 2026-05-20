@@ -135,35 +135,23 @@
                         </div>
                     </div>
                     <div class="button-container">
-                        <a href="https://arxiv.org/abs/2511.04670" class="button">
+                        <a href="" class="button">
                             <span class="icon is-small">
                                 <i class="ai ai-arxiv"></i>
                             </span>
                             <span>arXiv</span>
                         </a>
-                        <a href="https://github.com/cambrian-mllm/cambrian-s" class="button" target="_blank">
+                        <a href="" class="button" target="_blank">
                             <span class="icon is-small">
                                 <i class="fab fa-github"></i>
                             </span>
                             <span>Code</span>
                         </a>
-                        <a href="https://huggingface.co/collections/nyu-visionx/cambrian-s-models" class="button" target="_blank">
-                            <span class="icon is-small">
-                                <img src="https://huggingface.co/front/assets/huggingface_logo-noborder.svg" alt="Hugging Face logo" style="height: 1em;">
-                            </span>
-                            <span>Models</span>
-                        </a>
-                        <a href="https://hf.co/datasets/nyu-visionx/vsi-590k" class="button" target="_blank">
+                        <a href="" class="button" target="_blank">
                             <span class="icon is-small">
                                 <img src="https://huggingface.co/front/assets/huggingface_logo-noborder.svg" alt="Hugging Face logo" style="height: 1em;">
                             </span>
                             <span>Data</span>
-                        </a>
-                        <a href="https://hf.co/collections/nyu-visionx/vsi-super" class="button" target="_blank">
-                            <span class="icon is-small">
-                                <img src="https://huggingface.co/front/assets/huggingface_logo-noborder.svg" alt="Hugging Face logo" style="height: 1em;">
-                            </span>
-                            <span>Benchmark</span>
                         </a>
                     </div>
                 </div>
@@ -520,13 +508,13 @@
             
             <ul class="text" style="margin-bottom: 40px; padding-left: 20px;">
                 <li style="margin-bottom: 12px;">
-                    <strong>1. Causal Decoupling (Rule Execution):</strong> To isolate logical deduction from complex visual interference, we tested models on abstract symbolic elements (e.g., blocks, arrows) under altered rules. The universal performance drop confirmed that models merely retrieve memorized symbolic co-occurrences rather than executing true logical deduction.
+                    <strong>1. Rule Decoupling:</strong> To isolate logical deduction from complex visual interference, we tested models on abstract symbolic elements (e.g., blocks, arrows) under altered rules. The universal performance drop confirmed that models merely retrieve memorized symbolic co-occurrences rather than executing true logical deduction.
                 </li>
                 <li style="margin-bottom: 12px;">
-                    <strong>2. Attribute Decoupling (Visual Recombination):</strong> We evaluated models on rare concept pairs (e.g., "a teacup filled with iced cola"). While models perfectly rendered frequent co-occurrences, they failed on rare combinations. This suggests that in the latent space, models are subjected to the "gravitational pull" of adjacent high-density priors, interpolating memorized clusters rather than achieving true feature decoupling.
+                    <strong>2. Attribute Decoupling:</strong> We evaluated models on rare concept pairs (e.g., "a teacup filled with iced cola"). While models perfectly rendered frequent co-occurrences, they failed on rare combinations. This suggests that in the latent space, models are subjected to the "gravitational pull" of adjacent high-density priors, interpolating memorized clusters rather than achieving true feature decoupling.
                 </li>
                 <li>
-                    <strong>3. De-nominalization (Lexical Triggers):</strong> We systematically replaced high-frequency nouns in prompts (e.g., "ice cubes") with equivalent descriptive phrases (e.g., "transparent solid cubes"). This simple modification notably improved performance, exposing a critical lexical vulnerability: models often perform <em>lexical-to-image shortcut mapping</em>. Bypassing rigid noun triggers successfully unlocked the models' suppressed compositional capabilities.
+                    <strong>3. De-nominalization:</strong> We systematically replaced high-frequency nouns in prompts (e.g., "ice cubes") with equivalent descriptive phrases (e.g., "transparent solid cubes"). This simple modification notably improved performance, exposing a critical lexical vulnerability: models often perform <em>lexical-to-image shortcut mapping</em>. Bypassing rigid noun triggers successfully unlocked the models' suppressed compositional capabilities.
                 </li>
             </ul>   
             
