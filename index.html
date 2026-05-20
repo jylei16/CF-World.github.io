@@ -351,8 +351,26 @@
             </h2>
             
             <p class="text">
-                Extensive evaluations reveal a stark reality: even state-of-the-art models experience significant performance degradation when confronted with explicit (L2) and implicit (L3) counterfactuals. Closed-source models currently hold a distinct advantage in mitigating prior entanglement.
+                Extensive evaluations across 13 state-of-the-art models reveal a stark reality: while models excel at generating factual scenes, they experience a precipitous performance collapse when confronted with counterfactuals. Based on the quantitative results, we identified several critical insights:
             </p>
+            
+            <ul class="text" style="margin-bottom: 40px; padding-left: 20px;">
+                <li style="margin-bottom: 12px;">
+                    <strong>The Stubbornness of Prior Dependence:</strong> There is a universal performance drop from factual (L1) to explicit counterfactual (L2) generation. Most open-source models yield PRR scores below 0.50, indicating that visual representations and real-world knowledge remain deeply entangled.
+                </li>
+                <li style="margin-bottom: 12px;">
+                    <strong>The "Stronger Prior" Trap:</strong> Models with superior foundational capabilities (e.g., high L1 scores) do not necessarily excel in counterfactual tasks. Deep overfitting to training data can actually worsen "concept lock-in," acting as a severe bottleneck for generating counterfactuals.
+                </li>
+                <li style="margin-bottom: 12px;">
+                    <strong>Absence of Implicit Causal Reasoning:</strong> Performance drops sharply again in the implicit counterfactual (L3) setting. Without explicit visual cues, current models struggle with autonomous causal deduction, leading to substantial degradation in the Reasoning Retention Rate (RRR).
+                </li>
+                <li style="margin-bottom: 12px;">
+                    <strong>Architectural Implications:</strong> Traditional diffusion models with massively scaled text encoders (e.g., FLUX.2-dev) currently outperform native unified multimodal architectures (e.g., OmniGen2, Show-o2) in mitigating attribute entanglement during stress tests.
+                </li>
+                <li>
+                    <strong>The Open vs. Closed-Source Moat:</strong> Top-tier proprietary models (such as Nano Banana Pro and GPT-Image-1.5) maintain significantly more robust scores in both L2 and L3 compared to their open-source counterparts, likely due to massive-scale, high-quality alignment data.
+                </li>
+            </ul>
         
             <!-- 表格标题 (Caption) -->
             <div class="table-caption" style="max-width: 1000px; margin: 0 auto;">
