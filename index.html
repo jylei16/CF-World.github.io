@@ -515,8 +515,20 @@
             <!-- 添加了 id="decoupling" 以便导航栏跳转 -->
             <h2 id="decoupling" class="text">3. Why Models Fail: A Decoupling Perspective</h2>
             <p class="text">
-                Our mechanistic investigation reveals that the degradation stems from a fundamental inability to decouple. Because these models primarily learn pixel co-occurrences, they struggle to separate independent causal variables (logical reasoning) and basic attribute modules (visual recombination).
+                Our mechanistic investigation reveals that the precipitous degradation in counterfactual scenarios stems from a fundamental inability to decouple. Because current T2I models primarily learn pixel co-occurrences, they struggle to separate independent causal variables (logical reasoning) from basic attribute modules (visual recombination). To validate this deep-rooted entanglement, we designed three targeted experiments:
             </p>
+            
+            <ul class="text" style="margin-bottom: 40px; padding-left: 20px;">
+                <li style="margin-bottom: 12px;">
+                    <strong>1. Causal Decoupling (Rule Execution):</strong> To isolate logical deduction from complex visual interference, we tested models on abstract symbolic elements (e.g., blocks, arrows) under altered rules. The universal performance drop confirmed that models merely retrieve memorized symbolic co-occurrences rather than executing true logical deduction.
+                </li>
+                <li style="margin-bottom: 12px;">
+                    <strong>2. Attribute Decoupling (Visual Recombination):</strong> We evaluated models on rare concept pairs (e.g., "a teacup filled with iced cola"). While models perfectly rendered frequent co-occurrences, they failed on rare combinations. This suggests that in the latent space, models are subjected to the "gravitational pull" of adjacent high-density priors, interpolating memorized clusters rather than achieving true feature decoupling.
+                </li>
+                <li>
+                    <strong>3. De-nominalization (Lexical Triggers):</strong> We systematically replaced high-frequency nouns in prompts (e.g., "ice cubes") with equivalent descriptive phrases (e.g., "transparent solid cubes"). This simple modification notably improved performance, exposing a critical lexical vulnerability: models often perform <em>lexical-to-image shortcut mapping</em>. Bypassing rigid noun triggers successfully unlocked the models' suppressed compositional capabilities.
+                </li>
+            </ul>   
             
             <!-- 纯 HTML 渲染的 Table 2 -->
             <div class="cf-table-wrapper">
