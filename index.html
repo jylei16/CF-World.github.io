@@ -276,55 +276,65 @@
                  SECTION 2: CF-Eval & Key Results
             =========================================== -->
             
-            <!-- CF-Eval 章节 -->
-            <!-- Fixed ID to match navigation menu (#evaluation) -->
+            <!-- ==========================================
+                 SECTION: CF-Eval
+            =========================================== -->
             <h2 class="text" id="evaluation" style="border-bottom: 1px solid #eaeaea; padding-bottom: 10px; margin-bottom: 20px; margin-top: 4rem;">
-                CF-Eval: A VLM-Based Automated Evaluation Pipeline for Counterfactual Reasoning
+                CF-Eval: Automated VLM Evaluation Pipeline
             </h2>
             
             <p class="text">
-                To comprehensively quantify the generative capabilities of models in both factual and counterfactual scenarios, we introduce <strong>CF-Eval</strong>, a robust automated evaluation pipeline driven by Vision-Language Models (VLMs). The pipeline evaluates generated images through a structured, three-step process:
+                To quantify generative capabilities at scale, we introduce <strong>CF-Eval</strong>, an automated Vision-Language Model (VLM) pipeline that evaluates images through a structured, three-step process:
             </p>
             
             <h3 class="text" style="margin-top: 24px; margin-bottom: 12px; font-size: 1.2em;">
-                1. Multi-Dimensional Evaluation
+                1. Multi-Dimensional Assessment
             </h3>
-            <p class="text">
-                The VLM assesses each generated image across three weighted dimensions to ensure a holistic evaluation:
-            </p>
+            <p class="text" style="margin-bottom: 10px;">Each image is evaluated across three weighted dimensions:</p>
             <ul class="text" style="margin-bottom: 20px; padding-left: 20px;">
-                <li style="margin-bottom: 8px;">
-                    <strong>Visual Integrity:</strong> Evaluates fundamental, style-agnostic technical image quality (e.g., sharpness, anatomy) as a basic viability threshold.
-                </li>
-                <li style="margin-bottom: 8px;">
-                    <strong>Assessment Point:</strong> The primary ground truth. It strictly verifies whether the main subject adheres to the specific factual or counterfactual rule requested by the prompt.
-                </li>
-                <li style="margin-bottom: 8px;">
-                    <strong>Logic Consistency:</strong> Verifies that the surrounding context and environment align globally with the established physical or counterfactual setting.
-                </li>
+                <li style="margin-bottom: 8px;"><strong>Visual Integrity:</strong> Basic technical quality and structural viability.</li>
+                <li style="margin-bottom: 8px;"><strong>Assessment Point:</strong> The core ground truth. Verifies if the main subject obeys the requested factual or counterfactual rule.</li>
+                <li style="margin-bottom: 8px;"><strong>Logic Consistency:</strong> Ensures the surrounding environment logically aligns with the established setting.</li>
             </ul>
             
             <h3 class="text" style="margin-top: 24px; margin-bottom: 12px; font-size: 1.2em;">
-                2. Score Calculation
+                2. Conditional Score Calculation
             </h3>
             <p class="text">
-                The base score for a single image is calculated via a weighted average of the three dimensions. To prevent false positives and ensure meaningful counterfactual assessment, CF-Eval employs a <strong>conditional thresholding mechanism</strong>. Counterfactual scores (L2 and L3) are only calculated if the model first demonstrates basic factual comprehension by meeting a baseline threshold on the factual prompt (L1 score ≥ 0.5). Otherwise, the counterfactual scores are strictly set to zero.
+                The base score is a weighted average of the three dimensions. Crucially, CF-Eval uses a <strong>conditional threshold</strong> to prevent false positives: counterfactual scores (L2 and L3) are <em>only</em> calculated if the model first passes the baseline factual prompt (L1 score ≥ 0.5). Otherwise, counterfactual scores are strictly set to zero.
             </p>
             
             <h3 class="text" style="margin-top: 24px; margin-bottom: 12px; font-size: 1.2em;">
-                3. Evaluation Metrics
+                3. Novel Evaluation Metrics
             </h3>
-            <p class="text">
-                To rigorously quantify a model's true reasoning capabilities without falling into the "low-base performance trap," we propose two novel metrics based on the geometric mean of absolute scores and relative ratios:
+            <p class="text" style="margin-bottom: 15px;">
+                To rigorously quantify true reasoning capabilities without falling into the "low-base performance trap," we propose two new metrics:
             </p>
-            <ul class="text" style="margin-bottom: 40px; padding-left: 20px;">
-                <li style="margin-bottom: 12px;">
-                    <strong>Prior Resistance Rate (PRR):</strong> Measures a model's ability to overcome entrenched real-world priors when given explicit counterfactual instructions. It isolates the performance shift from standard factual generation (L1) to explicit counterfactual generation (L2).
-                </li>
-                <li>
-                    <strong>Reasoning Retention Rate (RRR):</strong> Assesses the robustness of a model's causal reasoning by measuring how effectively it maintains counterfactual generation capabilities when explicit visual cues are removed (transitioning from L2 to L3).
-                </li>
-            </ul>
+            
+            <!-- Clean Table for Metrics -->
+            <div style="overflow-x: auto; margin-bottom: 40px;">
+                <table style="width: 100%; border-collapse: collapse; text-align: left; font-size: 0.95rem;">
+                    <thead>
+                        <tr style="background-color: #f8f9fa; border-bottom: 2px solid #dee2e6;">
+                            <th style="padding: 12px; width: 30%;">Metric</th>
+                            <th style="padding: 12px; width: 50%;">What It Measures</th>
+                            <th style="padding: 12px; width: 20%;">Transition</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr style="border-bottom: 1px solid #eaeaea;">
+                            <td style="padding: 12px;"><strong>Prior Resistance Rate (PRR)</strong></td>
+                            <td style="padding: 12px;">The ability to overcome entrenched real-world priors when given explicit counterfactual instructions.</td>
+                            <td style="padding: 12px; color: #555;">L1 → L2</td>
+                        </tr>
+                        <tr style="border-bottom: 1px solid #eaeaea;">
+                            <td style="padding: 12px;"><strong>Reasoning Retention Rate (RRR)</strong></td>
+                            <td style="padding: 12px;">The robustness of causal reasoning when explicit visual cues are removed.</td>
+                            <td style="padding: 12px; color: #555;">L2 → L3</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
 
 
             <!-- 直接在 figure 上使用 l-page，并用 max-width 控制大小，margin: 3rem auto 保证居中 -->
@@ -339,33 +349,35 @@
 
 
 
-            <!-- Key Results 章节 -->
-            <!-- Fixed ID to match navigation menu (#results) -->
+            <!-- ==========================================
+                 SECTION: Key Results
+            =========================================== -->
             <h2 class="text" id="results" style="border-bottom: 1px solid #eaeaea; padding-bottom: 10px; margin-bottom: 20px; margin-top: 4rem;">
                 Key Results
             </h2>
             
-            <p class="text">
-                Extensive evaluations across 13 state-of-the-art models reveal a stark reality: while models excel at generating factual scenes, they experience a precipitous performance collapse when confronted with counterfactuals. Based on the quantitative results, we identified several critical insights:
+            <p class="text" style="margin-bottom: 20px;">
+                Extensive evaluations across 13 state-of-the-art models reveal a stark reality: while models excel at factual generation, their performance collapses on counterfactuals. Our key findings include:
             </p>
             
-            <ul class="text" style="margin-bottom: 40px; padding-left: 20px;">
+            <ul class="text" style="margin-bottom: 40px; padding-left: 20px; line-height: 1.7;">
                 <li style="margin-bottom: 12px;">
-                    <strong>The Stubbornness of Prior Dependence:</strong> There is a universal performance drop from factual (L1) to explicit counterfactual (L2) generation. Most open-source models yield PRR scores below 0.50, indicating that visual representations and real-world knowledge remain deeply entangled.
+                    <strong>Stubborn Prior Dependence (L1 → L2):</strong> Most open-source models fail to break real-world rules (PRR < 0.50), showing that visual traits and memorized knowledge are deeply entangled.
                 </li>
                 <li style="margin-bottom: 12px;">
-                    <strong>The "Stronger Prior" Trap:</strong> Models with superior foundational capabilities (e.g., high L1 scores) do not necessarily excel in counterfactual tasks. Deep overfitting to training data can actually worsen "concept lock-in," acting as a severe bottleneck for generating counterfactuals.
+                    <strong>The "Stronger Prior" Trap:</strong> High factual accuracy (L1) does not guarantee reasoning ability. In fact, overfitting to real-world data actually worsens "concept lock-in."
                 </li>
                 <li style="margin-bottom: 12px;">
-                    <strong>Absence of Implicit Causal Reasoning:</strong> Performance drops sharply again in the implicit counterfactual (L3) setting. Without explicit visual cues, current models struggle with autonomous causal deduction, leading to substantial degradation in the Reasoning Retention Rate (RRR).
+                    <strong>Absence of Causal Deduction (L2 → L3):</strong> When explicit visual instructions are removed, models cannot autonomously deduce outcomes, leading to sharp drops in RRR.
                 </li>
                 <li style="margin-bottom: 12px;">
-                    <strong>Architectural Implications:</strong> Traditional diffusion models with massively scaled text encoders (e.g., FLUX.2-dev) currently outperform native unified multimodal architectures (e.g., OmniGen2, Show-o2) in mitigating attribute entanglement during stress tests.
+                    <strong>Architectural Differences:</strong> Traditional diffusion models with massive text encoders (e.g., FLUX.2-dev) currently handle attribute decoupling better than native unified multimodal architectures.
                 </li>
                 <li>
-                    <strong>The Open vs. Closed-Source Moat:</strong> Top-tier proprietary models (such as Nano Banana Pro and GPT-Image-1.5) maintain significantly more robust scores in both L2 and L3 compared to their open-source counterparts, likely due to massive-scale, high-quality alignment data.
+                    <strong>The Proprietary Moat:</strong> Closed-source models (e.g., Nano Banana Pro) significantly outperform open-source counterparts on counterfactuals, likely due to superior alignment data.
                 </li>
             </ul>
+
         
             <!-- 表格标题 (Caption) -->
             <div class="table-caption" style="max-width: 1000px; margin: 0 auto;">
