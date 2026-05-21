@@ -1,8 +1,8 @@
 <!doctype html>
 <html lang="en">
     <head>
-        <title>Towards Spatial Supersensing in Video</title>
-        <link rel="icon" type="image/x-icon" href="figs/header.png">
+        <title>A Counterfactual Benchmark for Causal Reasoning</title>
+        <link rel="icon" type="image/x-icon" href="figs/header_fg.png">
 
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -18,7 +18,7 @@
         <meta name="twitter:card" content="summary_large_image" />
         <meta name="twitter:image" content="https://cambrian-s.github.io/new_header.webp" />
         <meta name="twitter:title" content="Cambrian-S" />
-        <meta name="twitter:description" content="Towards Spatial Supersensing in Video" />
+        <meta name="twitter:description" content="A Counterfactual Benchmark for Causal Reasoning" />
 
         <script src="./static/js/distill_template.v2.js"></script>
         <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
@@ -171,21 +171,22 @@
             </div>
 
             <!-- ==========================================
-                 SECTION 0: Overview & Navigation
+                 SECTION 0: Overview & Benchmark Introduction
             =========================================== -->
-            <h2 class="text">Overview: The Inductivist Turkey Dilemma</h2>
+            <h2 class="text">Overview: Testing the Reasoning Limits of Text-to-Image Models</h2>
             <p class="text">
-                The philosopher Bertrand Russell once proposed the famous thought experiment of the Inductivist Turkey: Observing daily feedings, the turkey deduces an unbreakable law—that food will always arrive—until Thanksgiving exposes its "world knowledge" as a mere statistical correlation rather than a true understanding of the farmer's intent.            </p>
+                Current text-to-image (T2I) models consistently generate high-quality images that comply with human commonsense. However, a critical question remains: does this seemingly perfect understanding stem from a genuine grasp of objective physical laws and causal logic, or is it merely sophisticated pattern matching and mechanical memorization of high-frequency co-occurrences in massive training datasets?
+            </p>
             <p class="text">
-                Current text-to-image (T2I) models face a remarkably similar dilemma. While they consistently generate high-quality images that comply with human commonsense—often leading to claims that AI has mastered a comprehensive world model—their underlying mechanisms remain questionable. Does this seemingly perfect understanding stem from a genuine grasp of objective physical laws and causal logic? Or is it merely sophisticated pattern matching and mechanical memorization of high-frequency co-occurrences in their massive training datasets? As recent evaluations in counterfactual scenarios reveal, these models suffer from severe "concept lock-in." Because they primarily learn pixel-level correlations, they struggle to decouple independent causal variables from basic visual attributes. When tasked with generating worlds that systematically contradict real-world priors, they, much like the turkey on Thanksgiving morning, default to familiar statistical habits rather than demonstrating true logical deduction.
+                To answer this, we introduce <strong>CF-World</strong>, a novel evaluation framework designed to test the true reasoning capabilities of T2I models. As our benchmark reveals, these models suffer from severe "concept lock-in." Because they primarily learn pixel-level correlations, they struggle to decouple independent causal variables from basic visual attributes. When tasked with generating images that systematically contradict real-world priors, T2I models default to familiar statistical habits rather than demonstrating true logical deduction.
+            </p>
             
-            <!-- 使用 max-width 控制具体大小，margin: 3rem auto 保证居中 -->
+            <!-- Image Container -->
             <figure class="l-page" style="max-width: 1000px; margin: 3rem auto;">
-                <img src="figs/counterfactual_mainpic.jpg" alt="Inductivist Turkey Dilemma" style="width: 100%; height: auto; display: block; border-radius: 8px; box-shadow: 0 4px 15px rgba(0,0,0,0.08);">
+                <img src="figs/counterfactual_mainpic.jpg" alt="Counterfactual Benchmark Results" style="width: 100%; height: auto; display: block; border-radius: 8px; box-shadow: 0 4px 15px rgba(0,0,0,0.08);">
                 
-                <!-- Caption 会自动和上面限制了宽度的图片完美对齐 -->
                 <figcaption style="font-size: 0.95rem; color: #555; margin-top: 15px; line-height: 1.5; text-align: left;">
-                    <strong>Figure 1:</strong> Text-to-image models as inductivist turkeys. Models perform best on standard factual prompts but suffer a precipitous drop on counterfactuals, demonstrating a failure to genuinely reason.
+                    <strong>Figure 1:</strong> Evaluating T2I models across factual and counterfactual scenarios. While models like FLUX.2-dev, Qwen-image, and Nano Banana perform well on standard factual prompts (L1), they suffer a precipitous drop in coherence when faced with explicit (L2) and implicit (L3) counterfactuals, demonstrating a failure to genuinely reason beyond learned correlations.
                 </figcaption>
             </figure>
 
@@ -222,27 +223,33 @@
             <!-- ==========================================
                  SECTION 1: The CF-World Benchmark
             =========================================== -->
-            <h2 class="text" id="benchmark">The CF-World Benchmark: A Progressive Framework for Probing Genuine Causal Reasoning</h2>
-
+            <h2 class="text" id="cf-world">The CF-World Benchmark: Probing Genuine Causal Reasoning</h2>
             <p class="text">
-                To rigorously determine whether text-to-image models truly comprehend the world or merely regurgitate memorized priors, we introduce the Counterfactual-World (CF-World) benchmark. Rather than testing shallow semantic combinations, CF-World systematically evaluates underlying causal logic across a massive, multi-disciplinary dataset, utilizing a strict control variable methodology.
+                The philosopher Bertrand Russell once proposed the famous thought experiment of the <strong>Inductivist Turkey</strong>: Observing daily feedings, the turkey deduces an unbreakable law—that food will always arrive—until Thanksgiving exposes its "world knowledge" as a mere statistical correlation rather than a true understanding of the farmer's intent. 
             </p>
-            
-            <h3 class="text" style="margin-top: 1.5rem; margin-bottom: 0.5rem;">Scale and Disciplinary Diversity</h3>
             <p class="text">
-                At its core, CF-World is built upon <strong>1,091 fundamental scientific principles</strong>, which are systematically expanded into <strong>3,273 meticulously crafted prompts</strong>. To ensure a comprehensive evaluation of objective world knowledge, the dataset spans eight distinct disciplines. <strong>As visualized in the interactive sunburst chart below, you can click on any category slice to explore specific 3-level prompt examples for that discipline:</strong>
+                To rigorously determine whether T2I models are simply "inductivist turkeys" regurgitating memorized priors, CF-World utilizes a progressive, three-tiered evaluation structure. By systematically altering rules and removing explicit instructions, this framework isolates different cognitive capabilities.
             </p>
 
-            
-            <h3 class="text" style="margin-bottom: 0.5rem;">The Three-Level Progressive Prompting Design</h3>
-            <p class="text">
-                The defining philosophy of CF-World is its progressive, three-tiered evaluation structure. By systematically altering the rules and removing explicit instructions, this framework isolates different cognitive capabilities:
-            </p>
-            <ul class="text" style="margin-bottom: 1.5rem; line-height: 1.6;">
-                <li><strong>Factual (L1) — The Baseline:</strong> Requests a standard, real-world phenomenon (e.g., <em>"Draw a piece of wood in water"</em>). This verifies whether the model possesses the foundational knowledge and basic generative capability to render the subject under normal conditions.</li>
-                <li><strong>Explicit Counterfactual (L2) — Visual Decoupling:</strong> Introduces an altered physical law and explicitly dictates the resulting visual state (e.g., <em>"If wood were denser than water, draw a piece of wood in water. It should sink to the bottom."</em>). This tests the model's ability to overcome entrenched commonsense priors and execute a counter-intuitive visual combination.</li>
-                <li><strong>Implicit Counterfactual (L3) — Causal Deduction:</strong> Presents only the altered premise without providing the visual answer (e.g., <em>"If wood were denser than water, draw a piece of wood in water."</em>). Here, the model must autonomously deduce the causal chain and render the correct counterfactual state without any visual hand-holding.</li>
+            <figure class="l-page" style="max-width: 1000px; margin: 3rem auto;">
+                <img src="figs/counterfactual_mainpic.jpg" alt="Counterfactual Benchmark Results" style="width: 100%; height: auto; display: block; border-radius: 8px; box-shadow: 0 4px 15px rgba(0,0,0,0.08);">
+                
+                <figcaption style="font-size: 0.95rem; color: #555; margin-top: 15px; line-height: 1.5; text-align: left;">
+                    <strong>Figure 2:</strong> Text-to-image models as inductivist turkeys. The progressive L1-to-L3 prompting design reveals how models fail to deduce causal changes (like water turning to ice at room temperature under altered physics) when explicit visual instructions are removed.
+                </figcaption>
+            </figure>
+
+            <h3 class="text">The Three-Level Progressive Prompting Design</h3>
+            <ul class="text" style="line-height: 1.8; margin-bottom: 2rem;">
+                <li><strong>Factual (L1) — The Baseline:</strong> Requests a standard, real-world phenomenon (e.g., "A bottle of water at room temperature"). This verifies whether the model possesses the foundational knowledge to render the subject under normal conditions (Day 1 to 364 for the turkey).</li>
+                <li><strong>Explicit Counterfactual (L2) — Visual Decoupling:</strong> Introduces an altered physical law and explicitly dictates the resulting visual state (e.g., "If the melting point of water is 100°C... water should be in the form of ice"). This tests the model's ability to overcome entrenched priors and execute a counter-intuitive visual combination.</li>
+                <li><strong>Implicit Counterfactual (L3) — Causal Deduction:</strong> Presents only the altered premise without providing the visual answer (Thanksgiving Day). Here, the model must autonomously deduce the causal chain and render the correct state without any visual hand-holding.</li>
             </ul>
+            
+            <h3 class="text">Scale and Disciplinary Diversity</h3>
+            <p class="text">
+                At its core, CF-World is built upon 1,091 fundamental scientific principles, which are systematically expanded into 3,273 meticulously crafted prompts. To ensure a comprehensive evaluation of objective world knowledge, the dataset spans eight distinct disciplines.
+            </p>
             
             <!-- 旭日图容器 -->
             <div style="width: 100%; display: flex; flex-direction: column; align-items: center; margin: 3rem 0;">
