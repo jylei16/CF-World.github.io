@@ -270,11 +270,6 @@
                     <img id="modal-image" src="" alt="Prompt Example" style="width: 100%; border-radius: 8px;">
                 </div>
             </div>
-
-            
-            <!-- ==========================================
-                 SECTION 2: CF-Eval & Key Results
-            =========================================== -->
             
             <!-- ==========================================
                  SECTION: CF-Eval
@@ -287,54 +282,25 @@
                 To quantify generative capabilities at scale, we introduce <strong>CF-Eval</strong>, an automated Vision-Language Model (VLM) pipeline that evaluates images through a structured, three-step process:
             </p>
             
-            <h3 class="text" style="margin-top: 24px; margin-bottom: 12px; font-size: 1.2em;">
-                1. Multi-Dimensional Assessment
-            </h3>
-            <p class="text" style="margin-bottom: 10px;">Each image is evaluated across three weighted dimensions:</p>
-            <ul class="text" style="margin-bottom: 20px; padding-left: 20px;">
-                <li style="margin-bottom: 8px;"><strong>Visual Integrity:</strong> Basic technical quality and structural viability.</li>
-                <li style="margin-bottom: 8px;"><strong>Assessment Point:</strong> The core ground truth. Verifies if the main subject obeys the requested factual or counterfactual rule.</li>
-                <li style="margin-bottom: 8px;"><strong>Logic Consistency:</strong> Ensures the surrounding environment logically aligns with the established setting.</li>
-            </ul>
-            
-            <h3 class="text" style="margin-top: 24px; margin-bottom: 12px; font-size: 1.2em;">
-                2. Conditional Score Calculation
-            </h3>
-            <p class="text">
-                The base score is a weighted average of the three dimensions. Crucially, CF-Eval uses a <strong>conditional threshold</strong> to prevent false positives: counterfactual scores (L2 and L3) are <em>only</em> calculated if the model first passes the baseline factual prompt (L1 score ≥ 0.5). Otherwise, counterfactual scores are strictly set to zero.
-            </p>
-            
-            <h3 class="text" style="margin-top: 24px; margin-bottom: 12px; font-size: 1.2em;">
-                3. Novel Evaluation Metrics
-            </h3>
             <p class="text" style="margin-bottom: 15px;">
-                To rigorously quantify true reasoning capabilities without falling into the "low-base performance trap," we propose two new metrics:
+                To rigorously evaluate the model's performance, our methodology is structured around three core components:
             </p>
             
-            <!-- Clean Table for Metrics -->
-            <div style="overflow-x: auto; margin-bottom: 40px;">
-                <table style="width: 100%; border-collapse: collapse; text-align: left; font-size: 0.95rem;">
-                    <thead>
-                        <tr style="background-color: #f8f9fa; border-bottom: 2px solid #dee2e6;">
-                            <th style="padding: 12px; width: 30%;">Metric</th>
-                            <th style="padding: 12px; width: 50%;">What It Measures</th>
-                            <th style="padding: 12px; width: 20%;">Transition</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr style="border-bottom: 1px solid #eaeaea;">
-                            <td style="padding: 12px;"><strong>Prior Resistance Rate (PRR)</strong></td>
-                            <td style="padding: 12px;">The ability to overcome entrenched real-world priors when given explicit counterfactual instructions.</td>
-                            <td style="padding: 12px; color: #555;">L1 → L2</td>
-                        </tr>
-                        <tr style="border-bottom: 1px solid #eaeaea;">
-                            <td style="padding: 12px;"><strong>Reasoning Retention Rate (RRR)</strong></td>
-                            <td style="padding: 12px;">The robustness of causal reasoning when explicit visual cues are removed.</td>
-                            <td style="padding: 12px; color: #555;">L2 → L3</td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
+            <ul class="text" style="margin-bottom: 20px; padding-left: 20px; line-height: 1.6;">
+                <li style="margin-bottom: 12px;">
+                    <strong>Multi-Dimensional Assessment:</strong> Each image is evaluated across three weighted dimensions: <em>Visual Integrity</em> (technical quality), <em>Assessment Point</em> (core ground truth), and <em>Logic Consistency</em> (environmental alignment).
+                </li>
+                <li style="margin-bottom: 12px;">
+                    <strong>Conditional Score Calculation:</strong> The base score is a weighted average of the dimensions. Crucially, counterfactual scores (L2 and L3) are only calculated if the model passes the baseline factual prompt (L1 score ≥ 0.5), strictly preventing false positives.
+                </li>
+                <li style="margin-bottom: 12px;">
+                    <strong>Novel Evaluation Metrics:</strong> To quantify true reasoning capabilities, we propose the <em>Prior Resistance Rate (PRR)</em> to measure the ability to overcome entrenched priors (L1 → L2), and the <em>Reasoning Retention Rate (RRR)</em> to evaluate causal reasoning robustness when visual cues are removed (L2 → L3).
+                </li>
+            </ul>
+
+
+            
+            
 
 
             <!-- 直接在 figure 上使用 l-page，并用 max-width 控制大小，margin: 3rem auto 保证居中 -->
