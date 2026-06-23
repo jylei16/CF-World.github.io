@@ -1,4 +1,4 @@
-<!doctype html>
+<!-- <!doctype html>
 <html lang="en">
     <head>
         <title>A Counterfactual Benchmark for Causal Reasoning</title>
@@ -856,4 +856,720 @@
 
     </body>
 </html>
+</html> -->
+
+
+
+<!doctype html>
+<html lang="en">
+    <head>
+        <title>CF-World: A Counterfactual Benchmark for Causal Reasoning</title>
+        <link rel="icon" type="image/x-icon" href="figs/header_fg.png">
+
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <!-- Open Graph (Meta 标签统一指向 CF-World) -->
+        <meta property="og:url" content="https://github.com/jylei16/CF-World.github.io" />
+        <meta property="og:image" content="https://github.com/jylei16/CF-World.github.io/figs/header_fg.png" />
+        <meta property="og:title" content="CF-World" />
+        <meta property="og:description" content="Are Text-to-Image Models Inductivist Turkeys? A Counterfactual Benchmark for Causal Reasoning" />
+
+        <!-- Twitter Card (修正为 CF-World 属性) -->
+        <meta name="twitter:url" content="https://github.com/jylei16/CF-World.github.io" />
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:image" content="figs/header_fg.png" />
+        <meta name="twitter:title" content="CF-World" />
+        <meta name="twitter:description" content="Are Text-to-Image Models Inductivist Turkeys? A Counterfactual Benchmark for Causal Reasoning" />
+
+        <!-- 核心模板与数学公式渲染 -->
+        <script src="./static/js/distill_template.v2.js"></script>
+        <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+
+        <!-- D3 与 ECharts (用于旭日图) -->
+        <script src="https://d3js.org/d3.v5.min.js"></script>
+        <script src="https://d3js.org/d3-collection.v1.min.js"></script>
+        <script src="https://rawgit.com/nstrayer/slid3r/master/dist/slid3r.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/echarts@5.5.0/dist/echarts.min.js"></script>
+
+        <!-- 交互脚本 (去除了视频切换等无关脚本) -->
+        <script defer="" src="./static/js/hider.js"></script>
+        <script src="./static/js/image_interact.js"></script>
+
+        <link rel="preload" as="image" href="figs/new_header.png" fetchpriority="high">
+        <link rel="stylesheet" href="./static/css/style.css">
+        <link rel="stylesheet" href="./static/css/fontawesome.all.min.css">
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/jpswalsh/academicons@1/css/academicons.min.css">
+
+        <!-- KaTeX 数学公式 -->
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.10.2/dist/katex.min.css" integrity="sha384-yFRtMMDnQtDRO8rLpMIKrtPCD5jdktao2TV19YiZYWMDkUR5GQZR/NOVTdquEx1j" crossorigin="anonymous">
+        <script defer src="https://cdn.jsdelivr.net/npm/katex@0.10.2/dist/katex.min.js" integrity="sha384-9Nhn55MVVN0/4OFx7EE5kpFBPsEMZxKTCnA+4fqDmg12eCTqGi6+BB2LjY8brQxJ" crossorigin="anonymous"></script>
+        <script defer src="https://cdn.jsdelivr.net/npm/katex@0.10.2/dist/contrib/auto-render.min.js" integrity="sha384-kWPLUVMOks5AQFrykwIup5lo0m3iMkkHrD0uJ4H5cjeGihAutqP0yW0J6dpFiVkI" crossorigin="anonymous" onload="renderMathInElement(document.body);"></script>
+        <script defer src="./static/js/fontawesome.all.min.js"></script>
+
+        <!-- Medium Zoom 图片放大 -->
+        <script src="https://cdn.jsdelivr.net/npm/jquery@3.7.1/dist/jquery.min.js"></script>
+        <script defer src="./static/js/medium-zoom.min.js"></script>
+        <script defer src="./static/js/zoom.js"></script>
+
+        <style>
+            .authors a,
+            .authors a * {
+                text-decoration: none !important;
+                border-bottom: none !important;
+                text-decoration-line: none !important;
+                text-decoration-style: none !important;
+                text-decoration-color: transparent !important;
+            }
+            .authors a:visited,
+            .authors a:focus,
+            .authors a:active,
+            .authors a:visited *,
+            .authors a:focus *,
+            .authors a:active * {
+                text-decoration: none !important;
+                border-bottom: none !important;
+                text-decoration-line: none !important;
+                text-decoration-style: none !important;
+                text-decoration-color: transparent !important;
+            }
+            .authors a:hover,
+            .authors a:hover * {
+                color: #007bff !important;
+                text-decoration: underline !important;
+                text-decoration-line: underline !important;
+                text-decoration-style: solid !important;
+                text-decoration-color: #007bff !important;
+            }
+        </style>
+    </head>
+    <body>
+        <div class="header-wrapper">
+            <div class="header-container" id="header-container">
+                <div class="header-content">
+                    <h1 style="margin-top: 0px"><i>CF-World</i></h1>
+                    <h2 style="font-size: 1.5em; line-height: 1.4;">
+                        Are Text-to-Image Models Inductivist Turkeys? <br>
+                        A Counterfactual Benchmark for Causal Reasoning
+                    </h2>
+                    <div class="icon-container">
+                        <div class="icon-item">
+                            <i class="fas fa-map-marker-alt" style="font-size: 1.6em; width: 30px; text-align: center; margin-right: 15px; opacity: 0.8; color: #333;"></i>
+                            <div><strong>The "Inductivist Turkey" Dilemma</strong>: We argue that current text-to-image models rely on memorized statistical correlations (priors) rather than a genuine understanding of objective world laws.</div>
+                        </div>
+                        
+                        <div class="icon-item">
+                            <i class="fas fa-crosshairs" style="font-size: 1.6em; width: 30px; text-align: center; margin-right: 15px; opacity: 0.8; color: #333;"></i>
+                            <div><strong>CF-World Benchmark</strong>: We introduce a novel benchmark with a three-level progressive framework (Factual, Explicit, and Implicit Counterfactuals) to rigorously test if models can break free from conventional priors.</div>
+                        </div>
+                        
+                        <div class="icon-item">
+                            <i class="fas fa-chart-bar" style="font-size: 1.6em; width: 30px; text-align: center; margin-right: 15px; opacity: 0.8; color: #333;"></i>
+                            <div><strong>CF-Eval Pipeline</strong>: We propose an automated evaluation system featuring new metrics like Prior Resistance Rate (PRR) and Reasoning Retention Rate (RRR) to accurately quantify true reasoning capabilities.</div>
+                        </div>
+                        
+                        <div class="icon-item">
+                            <i class="fas fa-puzzle-piece" style="font-size: 1.6em; width: 30px; text-align: center; margin-right: 15px; opacity: 0.8; color: #333;"></i>
+                            <div><strong>Findings & Root Cause</strong>: Extensive evaluations show SOTA models fail on counterfactuals due to a lack of logical decoupling. High-dimensional statistical priors force them to rely on language priors (concept lock-in) rather than separating true causal variables from visual attributes.</div>
+                        </div>
+                    </div>
+                    <div class="button-container">
+                        <a href="" class="button">
+                            <span class="icon is-small">
+                                <i class="ai ai-arxiv"></i>
+                            </span>
+                            <span>arXiv</span>
+                        </a>
+                        <a href="" class="button" target="_blank">
+                            <span class="icon is-small">
+                                <i class="fab fa-github"></i>
+                            </span>
+                            <span>Code</span>
+                        </a>
+                        <a href="" class="button" target="_blank">
+                            <span class="icon is-small">
+                                <img src="https://huggingface.co/front/assets/huggingface_logo-noborder.svg" alt="Hugging Face logo" style="height: 1em;">
+                            </span>
+                            <span>Data</span>
+                        </a>
+                    </div>
+                </div>
+                <div class="header-image">
+                    <img src="figs/header_fg.png" class="header-hero-image" style="max-width: 700px; width: 100%; height: auto; object-fit: contain;" alt="counterfactual" draggable="false" loading="eager" fetchpriority="high" decoding="async">
+                </div>
+            </div>
+        </div>
+        <d-article>
+            <div class="byline">
+                <div class="byline-container">
+                    <div class="authors" style="text-align: center; margin-bottom: 1rem; font-size: 1.4em; font-weight: 600; color: #333;">
+                        <span class="author-name">CF-World Team</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ==========================================
+                 SECTION 0: Overview & Benchmark Introduction
+            =========================================== -->
+            <h2 class="text">Overview: Testing the Reasoning Limits of Text-to-Image Models</h2>
+            <p class="text">
+                Current text-to-image (T2I) models consistently generate high-quality images that comply with human commonsense. However, a critical question remains: does this seemingly perfect understanding stem from a genuine grasp of objective physical laws and causal logic, or is it merely sophisticated pattern matching and mechanical memorization of high-frequency co-occurrences in massive training datasets?
+            </p>
+            <p class="text">
+                To answer this, we introduce <strong>CF-World</strong>, a novel evaluation framework designed to test the true reasoning capabilities of T2I models. As our benchmark reveals, these models suffer from severe "concept lock-in." Because they primarily learn pixel-level correlations, they struggle to decouple independent causal variables from basic visual attributes. When tasked with generating images that systematically contradict real-world priors, T2I models default to familiar statistical habits rather than demonstrating true logical deduction.
+            </p>
+            
+            <!-- Image Container -->
+            <figure class="l-page" style="max-width: 1000px; margin: 3rem auto;">
+                <img src="figs/fig1.jpg" alt="Counterfactual Benchmark Results" style="width: 100%; height: auto; display: block; border-radius: 8px; box-shadow: 0 4px 15px rgba(0,0,0,0.08);">
+                <figcaption style="font-size: 0.95rem; color: #555; margin-top: 15px; line-height: 1.5; text-align: left;">
+                    <strong>Figure 1:</strong> Evaluating T2I models across factual and counterfactual scenarios. While models like FLUX.2-dev, Qwen-image, and Nano Banana perform well on standard factual prompts (L1), they suffer a precipitous drop in coherence when faced with explicit (L2) and implicit (L3) counterfactuals, demonstrating a failure to genuinely reason beyond learned correlations.
+                </figcaption>
+            </figure>
+            
+            <!-- 导航跳转菜单 -->
+            <div class="nav-menu-container">
+                <div class="nav-buttons">
+                    <a href="#cf-world" class="nav-btn">
+                        <i class="fas fa-database"></i>
+                        <span>CF-World</span>
+                    </a>
+                    <a href="#evaluation" class="nav-btn">
+                        <i class="fas fa-tasks"></i>
+                        <span>CF-Eval</span>
+                    </a>
+                    <a href="#results" class="nav-btn">
+                        <i class="fas fa-chart-bar"></i>
+                        <span>Key Results</span>
+                    </a>
+                    <a href="#decoupling" class="nav-btn">
+                        <i class="fas fa-search"></i>
+                        <span>Why Models Fail</span>
+                    </a>
+                </div>
+                <div class="nav-hint">
+                    <i class="fas fa-hand-pointer"></i> Click to jump to each section.
+                </div>
+            </div>
+
+            <!-- ==========================================
+                 SECTION 1: The CF-World Benchmark
+            =========================================== -->
+            <h2 class="text" id="cf-world">The CF-World Benchmark: Probing Genuine Causal Reasoning</h2>
+            <p class="text">
+                The philosopher Bertrand Russell once proposed the famous thought experiment of the <strong>Inductivist Turkey</strong>: Observing daily feedings, the turkey deduces an unbreakable law—that food will always arrive—until Thanksgiving exposes its "world knowledge" as a mere statistical correlation rather than a true understanding of the farmer's intent. 
+            </p>
+            <p class="text">
+                To rigorously determine whether T2I models are simply "inductivist turkeys" regurgitating memorized priors, CF-World utilizes a progressive, three-tiered evaluation structure. By systematically altering rules and removing explicit instructions, this framework isolates different cognitive capabilities.
+            </p>
+
+            <figure class="l-page" style="max-width: 1000px; margin: 3rem auto;">
+                <img src="figs/counterfactual_mainpic.jpg" alt="Counterfactual Benchmark Results" style="width: 100%; height: auto; display: block; border-radius: 8px; box-shadow: 0 4px 15px rgba(0,0,0,0.08);">
+                <figcaption style="font-size: 0.95rem; color: #555; margin-top: 15px; line-height: 1.5; text-align: left;">
+                    <strong>Figure 2:</strong> Text-to-image models as inductivist turkeys. The progressive L1-to-L3 prompting design reveals how models fail to deduce causal changes (like water turning to ice at room temperature under altered physics) when explicit visual instructions are removed.
+                </figcaption>
+            </figure>
+
+            <h3 class="text">The Three-Level Progressive Prompting Design</h3>
+            <ul class="text" style="line-height: 1.8; margin-bottom: 2rem;">
+                <li><strong>Factual (L1) — The Baseline:</strong> Requests a standard, real-world phenomenon (e.g., "A bottle of water at room temperature"). This verifies whether the model possesses the foundational knowledge to render the subject under normal conditions.</li>
+                <li><strong>Explicit Counterfactual (L2) — Visual Decoupling:</strong> Introduces an altered physical law and explicitly dictates the resulting visual state (e.g., "If the melting point of water is 100°C... water should be in the form of ice"). This tests the model's ability to overcome entrenched priors and execute a counter-intuitive visual combination.</li>
+                <li><strong>Implicit Counterfactual (L3) — Causal Deduction:</strong> Presents only the altered premise without providing the visual answer. Here, the model must autonomously deduce the causal chain and render the correct state without any visual hand-holding.</li>
+            </ul>
+            
+            <h3 class="text">Scale and Disciplinary Diversity</h3>
+            <p class="text">
+                At its core, CF-World is built upon 1,091 fundamental scientific principles, which are systematically expanded into 3,273 meticulously crafted prompts. To ensure a comprehensive evaluation of objective world knowledge, the dataset spans eight distinct disciplines.
+            </p>
+            
+            <!-- 旭日图容器 -->
+            <div style="width: 100%; display: flex; flex-direction: column; align-items: center; margin: 3rem 0;">
+                <h3 style="text-align: center; margin-bottom: 10px;">Data Distribution & Prompt Examples</h3>
+                <p style="text-align: center; color: #666; font-size: 0.9rem; margin-bottom: 20px;">
+                    <i class="fas fa-mouse-pointer"></i> <strong>Interactive Chart:</strong> Click on any category slice to view its 3-level prompt examples.
+                </p>
+                <div id="sunburst-chart" style="width: 100%; max-width: 700px; height: 500px;"></div>
+            </div>
+            
+            <!-- ==========================================
+                 SECTION 2: CF-Eval
+            =========================================== -->
+            <h2 class="text" id="evaluation" style="border-bottom: 1px solid #eaeaea; padding-bottom: 10px; margin-bottom: 20px; margin-top: 4rem;">
+                CF-Eval: Automated VLM Evaluation Pipeline
+            </h2>
+            <p class="text">
+                To quantify generative capabilities at scale, we introduce <strong>CF-Eval</strong>, an automated Vision-Language Model (VLM) pipeline that evaluates images through a structured, three-step process:
+            </p>
+            <ul class="text" style="margin-bottom: 20px; padding-left: 20px; line-height: 1.6;">
+                <li style="margin-bottom: 12px;">
+                    <strong>Multi-Dimensional Assessment:</strong> Each image is evaluated across three weighted dimensions: <em>Visual Integrity</em> (technical quality), <em>Assessment Point</em> (core ground truth), and <em>Logic Consistency</em> (environmental alignment).
+                </li>
+                <li style="margin-bottom: 12px;">
+                    <strong>Conditional Score Calculation:</strong> The base score is a weighted average of the dimensions. Crucially, counterfactual scores (L2 and L3) are only calculated if the model passes the baseline factual prompt (L1 score ≥ 0.5), strictly preventing false positives.
+                </li>
+                <li style="margin-bottom: 12px;">
+                    <strong>Evaluation Metrics:</strong> To quantify true reasoning capabilities, we propose the <em>Prior Resistance Rate (PRR)</em> to measure the ability to overcome entrenched priors (L1 → L2), and the <em>Reasoning Retention Rate (RRR)</em> to evaluate causal reasoning robustness when visual cues are removed (L2 → L3).
+                </li>
+            </ul>
+
+            <figure class="l-page" style="max-width: 1000px; margin: 3rem auto;">
+                <img src="figs/score_pipeline.jpg" alt="VLM-based scoring pipeline" style="width: 100%; height: auto; display: block; border-radius: 8px; box-shadow: 0 4px 15px rgba(0,0,0,0.08);">
+                <figcaption style="font-size: 0.95rem; color: #555; margin-top: 15px; line-height: 1.5; text-align: left;">
+                    <strong>Figure 3: VLM-based scoring pipeline.</strong> Our proposed multi-dimensional scoring pipeline, featuring a sequential thresholding mechanism (<i>S<sub>L1</sub> &ge; 0.5</i>) and metrics-Prior Resistance Rate (PRR) and Reasoning Retention Rate (RRR).
+                </figcaption>
+            </figure>
+
+            <!-- ==========================================
+                 SECTION 3: Key Results
+            =========================================== -->
+            <h2 class="text" id="results" style="border-bottom: 1px solid #eaeaea; padding-bottom: 10px; margin-bottom: 20px; margin-top: 4rem;">
+                Key Results
+            </h2>
+            <p class="text" style="margin-bottom: 20px;">
+                Extensive evaluations across 13 state-of-the-art models reveal a stark reality: while models excel at factual generation, their performance collapses on counterfactuals. Our key findings include:
+            </p>
+            <ul class="text" style="margin-bottom: 40px; padding-left: 20px; line-height: 1.7;">
+                <li style="margin-bottom: 12px;">
+                    <strong>Stubborn Prior Dependence (L1 → L2):</strong> Most open-source models fail to break real-world rules (PRR < 0.50), showing that visual traits and memorized knowledge are deeply entangled.
+                </li>
+                <li style="margin-bottom: 12px;">
+                    <strong>The "Stronger Prior" Trap:</strong> High factual accuracy (L1) does not guarantee reasoning ability. In fact, overfitting to real-world data actually worsens "concept lock-in."
+                </li>
+                <li style="margin-bottom: 12px;">
+                    <strong>Absence of Causal Deduction (L2 → L3):</strong> When explicit visual instructions are removed, models cannot autonomously deduce outcomes, leading to sharp drops in RRR.
+                </li>
+                <li style="margin-bottom: 12px;">
+                    <strong>Architectural Differences:</strong> Traditional diffusion models with massive text encoders (e.g., FLUX.2-dev) currently handle attribute decoupling better than native unified multimodal architectures.
+                </li>
+                <li>
+                    <strong>The Proprietary Moat:</strong> Closed-source models (e.g., Nano Banana Pro) significantly outperform open-source counterparts on counterfactuals, likely due to superior alignment data.
+                </li>
+            </ul>
+
+            <!-- 表格标题 -->
+            <div class="table-caption" style="max-width: 1000px; margin: 0 auto;">
+                <strong>Table 1:</strong> Main evaluation results on the CF-World dataset. All metrics are scaled to 0-1. PRR and RRR are calculated to quantify reasoning robustness. The best performing open-weight models in each column are highlighted in <span class="cap-hl-blue" style="color: #007bff; font-weight: bold;">blue</span>, while the best proprietary models are highlighted in <span class="cap-hl-pink" style="color: #e83e8c; font-weight: bold;">pink</span>.
+            </div>
+        
+            <!-- 完整数据的学术三线表 -->
+            <div class="table-responsive" style="max-width: 1000px; margin: 0 auto;">
+                <table class="academic-table">
+                    <thead>
+                        <tr>
+                            <th rowspan="2" style="text-align: left; vertical-align: middle; border-bottom: 1px solid #aaa;">Model</th>
+                            <th colspan="5" style="text-align: center; border-bottom: 1px solid #aaa;">Qwen3-VL-235B</th>
+                            <th colspan="5" style="text-align: center; border-bottom: 1px solid #aaa;">Gemini-3-Pro</th>
+                        </tr>
+                        <tr>
+                            <th style="text-align: center; border-bottom: 1px solid #000;">L1</th>
+                            <th style="text-align: center; border-bottom: 1px solid #000;">L2</th>
+                            <th style="text-align: center; border-bottom: 1px solid #000;">L3</th>
+                            <th style="text-align: center; border-bottom: 1px solid #000;">PRR↑</th>
+                            <th style="text-align: center; border-bottom: 1px solid #000;">RRR↑</th>
+                            <th style="text-align: center; border-bottom: 1px solid #000;">L1</th>
+                            <th style="text-align: center; border-bottom: 1px solid #000;">L2</th>
+                            <th style="text-align: center; border-bottom: 1px solid #000;">L3</th>
+                            <th style="text-align: center; border-bottom: 1px solid #000;">PRR↑</th>
+                            <th style="text-align: center; border-bottom: 1px solid #000;">RRR↑</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr class="group-header open-source"><td colspan="11" style="font-weight: bold; background-color: #f9f9f9;">Open-Source Models</td></tr>
+                        <tr><td class="model-name">SANA 1.5</td><td>0.83</td><td>0.36</td><td>0.23</td><td>0.40</td><td>0.38</td><td>0.75</td><td>0.29</td><td>0.17</td><td>0.33</td><td>0.32</td></tr>
+                        <tr><td class="model-name">Janus-Pro-7B</td><td>0.80</td><td>0.29</td><td>0.21</td><td>0.32</td><td>0.39</td><td>0.69</td><td>0.21</td><td>0.11</td><td>0.25</td><td>0.24</td></tr>
+                        <tr><td class="model-name">Show-o2</td><td>0.77</td><td>0.32</td><td>0.20</td><td>0.36</td><td>0.35</td><td>0.66</td><td>0.25</td><td>0.14</td><td>0.31</td><td>0.28</td></tr>
+                        <tr><td class="model-name">Z-image</td><td>0.82</td><td>0.38</td><td>0.21</td><td>0.42</td><td>0.34</td><td>0.75</td><td>0.33</td><td>0.16</td><td>0.38</td><td>0.28</td></tr>
+                        <tr><td class="model-name">Lumina-DiMOO</td><td>0.76</td><td>0.33</td><td>0.20</td><td>0.38</td><td>0.35</td><td>0.70</td><td>0.29</td><td>0.17</td><td>0.35</td><td>0.32</td></tr>
+                        <tr><td class="model-name">BAGEL</td><td>0.80</td><td>0.29</td><td>0.17</td><td>0.32</td><td>0.32</td><td>0.73</td><td>0.29</td><td>0.15</td><td>0.34</td><td>0.28</td></tr>
+                        <tr><td class="model-name">BAGEL-CoT</td><td class="hl-blue" style="color: #007bff; font-weight: bold;">0.88</td><td class="hl-blue" style="color: #007bff; font-weight: bold;">0.43</td><td class="hl-blue" style="color: #007bff; font-weight: bold;">0.29</td><td>0.46</td><td class="hl-blue" style="color: #007bff; font-weight: bold;">0.44</td><td>0.82</td><td>0.41</td><td>0.26</td><td>0.45</td><td class="hl-blue" style="color: #007bff; font-weight: bold;">0.41</td></tr>
+                        <tr><td class="model-name">OmniGen2</td><td>0.76</td><td>0.32</td><td>0.19</td><td>0.37</td><td>0.34</td><td>0.70</td><td>0.29</td><td>0.18</td><td>0.35</td><td>0.33</td></tr>
+                        <tr><td class="model-name">FLUX.2-dev</td><td>0.81</td><td>0.42</td><td>0.26</td><td class="hl-blue" style="color: #007bff; font-weight: bold;">0.47</td><td>0.40</td><td class="hl-blue" style="color: #007bff; font-weight: bold;">0.83</td><td class="hl-blue" style="color: #007bff; font-weight: bold;">0.48</td><td class="hl-blue" style="color: #007bff; font-weight: bold;">0.28</td><td class="hl-blue" style="color: #007bff; font-weight: bold;">0.53</td><td>0.40</td></tr>
+                        <tr><td class="model-name">Qwen-Image</td><td>0.84</td><td>0.35</td><td>0.24</td><td>0.38</td><td>0.41</td><td>0.80</td><td>0.37</td><td>0.23</td><td>0.41</td><td>0.38</td></tr>
+                        
+                        <tr class="group-header closed-source"><td colspan="11" style="font-weight: bold; background-color: #f9f9f9;">Closed-Source Models</td></tr>
+                        <tr><td class="model-name">Nano Banana</td><td>0.93</td><td>0.64</td><td>0.55</td><td>0.66</td><td>0.69</td><td>0.88</td><td>0.64</td><td>0.52</td><td>0.68</td><td>0.65</td></tr>
+                        <tr><td class="model-name">Nano Banana Pro</td><td class="hl-pink" style="color: #e83e8c; font-weight: bold;">0.95</td><td class="hl-pink" style="color: #e83e8c; font-weight: bold;">0.67</td><td class="hl-pink" style="color: #e83e8c; font-weight: bold;">0.58</td><td class="hl-pink" style="color: #e83e8c; font-weight: bold;">0.69</td><td class="hl-pink" style="color: #e83e8c; font-weight: bold;">0.71</td><td class="hl-pink" style="color: #e83e8c; font-weight: bold;">0.93</td><td class="hl-pink" style="color: #e83e8c; font-weight: bold;">0.76</td><td class="hl-pink" style="color: #e83e8c; font-weight: bold;">0.67</td><td class="hl-pink" style="color: #e83e8c; font-weight: bold;">0.79</td><td class="hl-pink" style="color: #e83e8c; font-weight: bold;">0.77</td></tr>
+                        <tr><td class="model-name">GPT-Image-1.5</td><td>0.92</td><td>0.66</td><td>0.49</td><td class="hl-pink" style="color: #e83e8c; font-weight: bold;">0.69</td><td>0.60</td><td>0.91</td><td>0.73</td><td>0.55</td><td>0.77</td><td>0.64</td></tr>
+                        <tr><td class="model-name" style="border-bottom: 1px solid #000;">Seedream 5.0</td><td style="border-bottom: 1px solid #000;">0.91</td><td style="border-bottom: 1px solid #000;">0.63</td><td style="border-bottom: 1px solid #000;">0.50</td><td style="border-bottom: 1px solid #000;">0.66</td><td style="border-bottom: 1px solid #000;">0.63</td><td style="border-bottom: 1px solid #000;">0.89</td><td style="border-bottom: 1px solid #000;">0.72</td><td style="border-bottom: 1px solid #000;">0.61</td><td style="border-bottom: 1px solid #000;">0.76</td><td style="border-bottom: 1px solid #000;">0.72</td></tr>
+                    </tbody>
+                </table>
+            </div>
+        
+            <!-- 交互式定性对比部分 -->
+            <h3 class="text" style="margin-top: 3rem; margin-bottom: 15px;">
+                Interactive Qualitative Comparison
+            </h3>
+            <p class="text">
+                Please select the test scenario and model below to view the generation results of this model at the three counterfactual levels.
+            </p>
+            
+            <div class="benchmark-viewer">
+                <div class="controls-panel">
+                    <div class="controls-group">
+                        <label for="scenario-select" class="control-label">Select the test scenario</label>
+                        <select id="scenario-select" class="scenario-select"></select>
+                    </div>
+                    <div class="controls-group">
+                        <strong class="control-label">Select the generation model</strong>
+                        <div id="model-buttons" class="button-container"></div>
+                    </div>
+                </div>
+            
+                <div id="display-area" class="comparison-grid">
+                    <div class="level-card level-card-l1">
+                        <div class="level-header">
+                            <span class="level-badge factual">L1: Factual</span>
+                        </div>
+                        <div class="prompt-box">
+                            <p id="text-l1" class="prompt-text"></p>
+                        </div>
+                        <div class="image-box">
+                            <img id="img-l1" src="" alt="">
+                        </div>
+                    </div>
+            
+                    <div class="level-card level-card-l2">
+                        <div class="level-header">
+                            <span class="level-badge explicit">L2: Explicit Counterfactual</span>
+                        </div>
+                        <div class="prompt-box">
+                            <p id="text-l2" class="prompt-text"></p>
+                        </div>
+                        <div class="image-box">
+                            <img id="img-l2" src="" alt="">
+                        </div>
+                    </div>
+            
+                    <div class="level-card level-card-l3">
+                        <div class="level-header">
+                            <span class="level-badge implicit">L3: Implicit Counterfactual</span>
+                        </div>
+                        <div class="prompt-box">
+                            <p id="text-l3" class="prompt-text"></p>
+                        </div>
+                        <div class="image-box">
+                            <img id="img-l3" src="" alt="">
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ==========================================
+                 SECTION 4: Why Models Fail
+            =========================================== -->
+            <h2 id="decoupling" class="text">Why Models Fail: A Decoupling Perspective</h2>
+            <p class="text">
+                Our mechanistic investigation reveals that the precipitous degradation in counterfactual scenarios stems from a fundamental inability to decouple. Because current T2I models primarily learn pixel co-occurrences, they struggle to separate independent causal variables (logical reasoning) from basic attribute modules (visual recombination). To validate this deep-rooted entanglement, we designed three targeted experiments:
+            </p>
+            <ul class="text" style="margin-bottom: 40px; padding-left: 20px;">
+                <li style="margin-bottom: 12px;">
+                    <strong>1. Rule Decoupling:</strong> To isolate logical deduction from complex visual interference, we tested models on abstract symbolic elements (e.g., blocks, arrows) under altered rules. The universal performance drop confirmed that models merely retrieve memorized symbolic co-occurrences rather than executing true logical deduction.
+                </li>
+                <li style="margin-bottom: 12px;">
+                    <strong>2. Attribute Decoupling:</strong> We evaluated models on rare concept pairs (e.g., "a teacup filled with iced cola"). While models perfectly rendered frequent co-occurrences, they failed on rare combinations. This suggests that in the latent space, models are subjected to the "gravitational pull" of adjacent high-density priors, interpolating memorized clusters rather than achieving true feature decoupling.
+                </li>
+                <li>
+                    <strong>3. De-nominalization:</strong> We systematically replaced high-frequency nouns in prompts (e.g., "ice cubes") with equivalent descriptive phrases (e.g., "transparent solid cubes"). This simple modification notably improved performance, exposing a critical lexical vulnerability: models often perform <em>lexical-to-image shortcut mapping</em>. Bypassing rigid noun triggers successfully unlocked the models' suppressed compositional capabilities.
+                </li>
+            </ul>   
+            
+            <!-- 纯 HTML 渲染的 Table 2 -->
+            <div class="cf-table-wrapper">
+                <table class="cf-table">
+                    <thead>
+                        <tr>
+                            <th rowspan="2" style="text-align: left;">Model</th>
+                            <th colspan="2" style="text-align: center;">Rule Decoupling</th>
+                            <th colspan="2" style="text-align: center;">Attribute Decoupling</th>
+                            <th colspan="2" style="text-align: center;">De-nominalization</th>
+                        </tr>
+                        <tr>
+                            <th style="text-align: center;">Fact.</th><th style="text-align: center;">CF</th>
+                            <th style="text-align: center;">Fact.</th><th style="text-align: center;">CF</th>
+                            <th style="text-align: center;">L2</th><th style="text-align: center;">De-norm</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr><td style="text-align: left;">SANA 1.5</td><td>0.31</td><td>0.30</td><td>0.94</td><td>0.83</td><td>0.36</td><td>0.37</td></tr>
+                        <tr><td style="text-align: left;">Janus-Pro-7B</td><td>0.19</td><td>0.07</td><td>0.97</td><td>0.83</td><td>0.29</td><td>0.30</td></tr>
+                        <tr><td style="text-align: left;">Show-o2</td><td>0.39</td><td>0.37</td><td>0.92</td><td>0.80</td><td>0.32</td><td>0.37</td></tr>
+                        <tr><td style="text-align: left;">Z-image</td><td class="highlight-closed">0.61</td><td class="highlight-closed">0.53</td><td>0.98</td><td class="highlight-open">0.89</td><td>0.38</td><td>0.43</td></tr>
+                        <tr><td style="text-align: left;">Lumina-DiMOO</td><td>0.38</td><td>0.34</td><td>0.97</td><td>0.82</td><td>0.33</td><td>0.35</td></tr>
+                        <tr><td style="text-align: left;">BAGEL</td><td>0.29</td><td>0.22</td><td class="highlight-open">0.98</td><td>0.83</td><td>0.29</td><td>0.31</td></tr>
+                        <tr><td style="text-align: left;">BAGEL-CoT</td><td>0.38</td><td>0.32</td><td>0.97</td><td class="highlight-closed">0.90</td><td class="highlight-closed">0.43</td><td class="highlight-open">0.44</td></tr>
+                        <tr><td style="text-align: left;">OmniGen2</td><td>0.33</td><td>0.25</td><td>0.96</td><td>0.81</td><td>0.32</td><td>0.35</td></tr>
+                        <tr><td style="text-align: left;">FLUX.2-dev</td><td class="highlight-open">0.53</td><td class="highlight-open">0.52</td><td class="highlight-closed">0.99</td><td class="highlight-closed">0.90</td><td class="highlight-open">0.42</td><td class="highlight-closed">0.51</td></tr>
+                        <tr><td style="text-align: left;">Qwen-Image</td><td>0.40</td><td>0.40</td><td>0.97</td><td>0.86</td><td>0.35</td><td>0.37</td></tr>
+                    </tbody>
+                </table>
+            </div>
+        </d-article>
+
+        <!-- ECharts 旭日图渲染脚本 -->
+        <script>
+            var chartDom = document.getElementById('sunburst-chart');
+            var myChart = echarts.init(chartDom);
+        
+            const imageMap = {
+                "Classic Mechanics": "figs/classic_mechanics.jpg",
+                "Optics": "figs/optics.jpg",
+                "Thermodynamics": "figs/thermodynamics.jpg",
+                "Astronomy": "figs/Astronomy.jpg",
+                "Electromagnetism": "figs/Electromagnetism.jpg",
+                "Chemical": "figs/Chemical.jpg",
+                "Biology": "figs/Biology.jpg",
+                "Geography": "figs/Geography.jpg",
+                "Sociology": "figs/Socialism.jpg"
+            };
+        
+            var option = {
+                title: {
+                    text: '{a|Total Prompts}\n{b|1,091}',
+                    left: 'center',
+                    top: 'center',
+                    textStyle: {
+                        rich: {
+                            a: { fontSize: 14, color: '#666', align: 'center', padding: [0, 0, 5, 0] },
+                            b: { fontSize: 28, color: '#333', fontWeight: 'bold', align: 'center' }
+                        }
+                    }
+                },
+                tooltip: {
+                    trigger: 'item',
+                    backgroundColor: 'rgba(255, 255, 255, 0.95)',
+                    borderColor: '#ddd',
+                    borderWidth: 1,
+                    padding: 12,
+                    textStyle: { color: '#333' },
+                    formatter: function(params) {
+                        if (params.name.includes('Placeholder')) return '';
+                        if (params.name === 'Physics') {
+                            return `<strong>Physics</strong>: 285 prompts`;
+                        }
+                        if (imageMap[params.name]) {
+                            return `
+                                <div style="text-align: center; font-family: sans-serif;">
+                                    <strong style="font-size: 15px; display: block; margin-bottom: 10px; color: #2c3e50;">
+                                        ${params.name} Examples
+                                    </strong>
+                                    <img src="${imageMap[params.name]}" style="width: 300px; border-radius: 6px; box-shadow: 0 4px 12px rgba(0,0,0,0.15); display: block;" />
+                                </div>
+                            `;
+                        }
+                        return `<strong>${params.name}</strong>: ${params.value} prompts`;
+                    }
+                },
+                series: [
+                    {
+                        type: 'pie',
+                        radius: ['35%', '85%'],
+                        avoidLabelOverlap: true,
+                        itemStyle: { borderColor: '#fff', borderWidth: 2 },
+                        emphasis: { scale: false }, 
+                        data: [
+                            { name: 'Physics_Placeholder', value: 422, itemStyle: { color: 'transparent', borderWidth: 0 }, emphasis: { disabled: true }, tooltip: { show: false }, label: { show: false } },
+                            { name: 'Biology', value: 173, itemStyle: { color: '#cba1d2' }, label: { position: 'inside', formatter: '{b}\n({c})', color: '#fff', fontSize: 16, fontWeight: 'bold' } },
+                            { name: 'Chemical', value: 173, itemStyle: { color: '#f4b183' }, label: { position: 'inside', formatter: '{b}\n({c})', color: '#fff', fontSize: 16, fontWeight: 'bold' } },
+                            { name: 'Geography', value: 25, itemStyle: { color: '#a9d18e' }, label: { position: 'outside', formatter: '{b}\n({c})', color: '#769362', fontSize: 14, fontWeight: 'bold' }, labelLine: { show: true, length: 15, length2: 20, lineStyle: { color: '#a9d18e', width: 2 } } },
+                            { name: 'Sociology', value: 22, itemStyle: { color: '#ffe699' }, label: { position: 'outside', formatter: '{b}\n({c})', color: '#b2a16b', fontSize: 14, fontWeight: 'bold' }, labelLine: { show: true, length: 15, length2: 30, lineStyle: { color: '#ffe699', width: 2 } } }
+                        ]
+                    },
+                    {
+                        type: 'pie',
+                        radius: ['35%', '60%'],
+                        itemStyle: { borderColor: '#fff', borderWidth: 2 },
+                        emphasis: { scale: false },
+                        data: [
+                            { name: 'Physics', value: 422, itemStyle: { color: '#2e75b6' }, label: { position: 'inside', formatter: 'Physics\n(285)', color: '#fff', fontSize: 14, fontWeight: 'bold' } },
+                            { name: 'Rest_Placeholder', value: 393, itemStyle: { color: 'transparent', borderWidth: 0 }, emphasis: { disabled: true }, tooltip: { show: false }, label: { show: false } }
+                        ]
+                    },
+                    {
+                        type: 'pie',
+                        radius: ['60%', '85%'],
+                        itemStyle: { borderColor: '#fff', borderWidth: 2 },
+                        emphasis: { scale: false },
+                        data: [
+                            { name: 'Classic Mechanics', value: 95, itemStyle: { color: '#1f4e79' }, label: { position: 'inside', formatter: 'Classic\nMechanics\n({c})', color: '#fff', fontSize: 11 } },
+                            { name: 'Optics', value: 102, itemStyle: { color: '#2a6293' }, label: { position: 'inside', formatter: '{b}\n({c})', color: '#fff', fontSize: 11 } },
+                            { name: 'Thermodynamics', value: 95, itemStyle: { color: '#3a82c4' }, label: { position: 'inside', formatter: 'Thermo-\ndynamics\n({c})', color: '#fff', fontSize: 11 } },
+                            { name: 'Astronomy', value: 75, itemStyle: { color: '#6fa6d6' }, label: { position: 'inside', formatter: '{b}\n({c})', color: '#fff', fontSize: 11 } },
+                            { name: 'Electromagnetism', value: 55, itemStyle: { color: '#9bc2e6' }, label: { position: 'outside', formatter: '{b}\n({c})', color: '#6c87a1', fontSize: 12, fontWeight: 'bold' }, labelLine: { show: true, length: 15, length2: 40, lineStyle: { color: '#9bc2e6', width: 2 } } },
+                            { name: 'Rest_Placeholder', value: 393, itemStyle: { color: 'transparent', borderWidth: 0 }, emphasis: { disabled: true }, tooltip: { show: false }, label: { show: false } }
+                        ]
+                    }
+                ]
+            };
+            
+            myChart.setOption(option);
+        </script>
+
+        <!-- 交互式 Benchmark 数据绑定与切换脚本 -->
+        <script src="data.js"></script>
+        <script>
+            let currentScenarioIndex = 0;
+            let currentModel = null;
+        
+            function initBenchmarkViewer() {
+                if (typeof benchmarkData === "undefined") {
+                    console.error("benchmarkData is not loaded. Please check data.js.");
+                    return;
+                }
+        
+                if (!benchmarkData.scenarios || benchmarkData.scenarios.length === 0) {
+                    console.error("No scenarios found in benchmarkData.");
+                    return;
+                }
+        
+                const scenarioSelect = document.getElementById("scenario-select");
+                const modelButtonsContainer = document.getElementById("model-buttons");
+        
+                if (!scenarioSelect || !modelButtonsContainer) {
+                    console.error("Benchmark viewer containers not found.");
+                    return;
+                }
+        
+                scenarioSelect.innerHTML = "";
+                modelButtonsContainer.innerHTML = "";
+        
+                benchmarkData.scenarios.forEach((scenario, index) => {
+                    const option = document.createElement("option");
+                    option.value = index;
+                    option.textContent = scenario.name || scenario.id || `Scenario ${index + 1}`;
+                    scenarioSelect.appendChild(option);
+                });
+        
+                currentScenarioIndex = 0;
+                scenarioSelect.value = String(currentScenarioIndex);
+        
+                const firstScenario = benchmarkData.scenarios[currentScenarioIndex];
+                const firstAvailableModels = Object.keys(firstScenario.images || {});
+                currentModel = firstAvailableModels[0] || null;
+        
+                scenarioSelect.addEventListener("change", () => {
+                    currentScenarioIndex = Number(scenarioSelect.value);
+        
+                    const scenario = benchmarkData.scenarios[currentScenarioIndex];
+                    const availableModels = Object.keys((scenario && scenario.images) || {});
+        
+                    if (!availableModels.includes(currentModel)) {
+                        currentModel = availableModels[0] || null;
+                    }
+        
+                    updateModelButtons();
+                    updateDisplay();
+                });
+        
+                updateModelButtons();
+                updateDisplay();
+            }
+        
+            function updateModelButtons() {
+                const modelButtonsContainer = document.getElementById("model-buttons");
+                if (!modelButtonsContainer) return;
+        
+                modelButtonsContainer.innerHTML = "";
+                const scenario = benchmarkData.scenarios[currentScenarioIndex];
+                if (!scenario || !scenario.images) {
+                    currentModel = null;
+                    return;
+                }
+        
+                const availableModels = Object.keys(scenario.images);
+                if (availableModels.length === 0) {
+                    currentModel = null;
+                    return;
+                }
+        
+                if (!availableModels.includes(currentModel)) {
+                    currentModel = availableModels[0];
+                }
+        
+                availableModels.forEach(model => {
+                    const button = document.createElement("button");
+                    button.className = "benchmark-btn model-btn";
+                    button.textContent = model;
+        
+                    if (model === currentModel) {
+                        button.classList.add("active");
+                    }
+        
+                    button.addEventListener("click", () => {
+                        currentModel = model;
+                        document.querySelectorAll(".model-btn").forEach(btn => {
+                            btn.classList.remove("active");
+                        });
+                        button.classList.add("active");
+                        updateDisplay();
+                    });
+        
+                    modelButtonsContainer.appendChild(button);
+                });
+            }
+        
+            function updateDisplay() {
+                const scenario = benchmarkData.scenarios[currentScenarioIndex];
+                if (!scenario) {
+                    clearDisplay();
+                    return;
+                }
+        
+                setText("text-l1", scenario.prompt_l1 || "");
+                setText("text-l2", scenario.prompt_l2 || "");
+                setText("text-l3", scenario.prompt_l3 || "");
+        
+                const images = scenario.images && currentModel ? scenario.images[currentModel] : null;
+                if (!images) {
+                    setImage("img-l1", "");
+                    setImage("img-l2", "");
+                    setImage("img-l3", "");
+                    return;
+                }
+        
+                setImage("img-l1", images.l1);
+                setImage("img-l2", images.l2);
+                setImage("img-l3", images.l3);
+            }
+        
+            function setText(elementId, text) {
+                const element = document.getElementById(elementId);
+                if (element) element.textContent = text || "";
+            }
+        
+            function setImage(imgId, src) {
+                const img = document.getElementById(imgId);
+                if (!img) return;
+        
+                img.onerror = null;
+                if (!src) {
+                    img.removeAttribute("src");
+                    img.alt = "Image not available";
+                    img.classList.add("image-missing");
+                    return;
+                }
+        
+                img.classList.remove("image-missing");
+                img.alt = imgId.replace("img-", "").toUpperCase() + " Result";
+                img.src = src;
+        
+                img.onerror = function () {
+                    console.error("Failed to load image:", src);
+                    img.removeAttribute("src");
+                    img.alt = "Image failed to load";
+                    img.classList.add("image-missing");
+                };
+            }
+        
+            function clearDisplay() {
+                setText("text-l1", "");
+                setText("text-l2", "");
+                setText("text-l3", "");
+                setImage("img-l1", "");
+                setImage("img-l2", "");
+                setImage("img-l3", "");
+            }
+        
+            document.addEventListener("DOMContentLoaded", initBenchmarkViewer);
+        </script>
+    </body>
 </html>
