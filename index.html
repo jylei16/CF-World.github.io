@@ -137,40 +137,42 @@
                 </div>
             </div>
         </div>
-        <d-article>
-           <div class="byline">
-                <!-- 1. 容器宽度：将 max-width 设置为 100% 或更大的值，并增加左右内边距 -->
-                <div class="byline-container" style="text-align: center; font-family: 'Times New Roman', Times, serif; color: #111; line-height: 1.6; margin: 2rem auto; max-width: 1200px; padding: 0 40px;">
-                    
-                    <!-- 2. 作者名单：增加词间距，让名字之间更疏朗 -->
-                    <div class="authors" style="font-size: 1.3em; font-weight: bold; margin-bottom: 0.8rem; word-spacing: 8px; letter-spacing: 0.5px;">
-                        Jiayi Lei<sup>1,2</sup>, 
-                        Yuandong Pu<sup>1,2</sup>, 
-                        Xingyu Han<sup>1</sup>, 
-                        Rongpeng Zhu<sup>1</sup>, 
-                        Jing Xu<sup>3</sup>, 
-                        Jinyao Wang<sup>1</sup>, 
-                        Zijian Zhou<sup>1</sup>, 
-                        Bin Fu<sup>2</sup>, 
-                        Yuewen Cao<sup>2&dagger;</sup>, 
-                        Yihao Liu<sup>2&dagger;</sup>, 
-                        Hongsheng Li<sup>3&dagger;</sup>
-                    </div>
-            
-                    <!-- 3. 机构列表：使用 flex 布局，让机构水平均匀分布，看起来更宽 -->
-                    <div class="institutions" style="font-size: 1.1em; margin-bottom: 0.5rem; display: flex; justify-content: center; gap: 30px; flex-wrap: wrap;">
-                        <span><sup>1</sup>Shanghai Jiao Tong University</span>
-                        <span><sup>2</sup>Shanghai AI Laboratory</span>
-                        <span><sup>3</sup>The Chinese University of Hong Kong</span>
-                    </div>
-            
-                    <!-- 4. 通讯作者标注 -->
-                    <div class="corresponding-author" style="font-size: 1.0em; font-style: italic; margin-top: 0.5rem;">
-                        <sup>&dagger;</sup>Corresponding author
-                    </div>
-            
+        <div class="byline">
+            <!-- 将 max-width 设置大一点，例如 1000px 或 100% -->
+            <div class="byline-container" style="text-align: center; font-family: 'Times New Roman', Times, serif; color: #111; line-height: 1.5; margin: 2rem auto; max-width: 1000px; padding: 0 20px;">
+                
+                <!-- 1. 作者名单：移除强制换行，让它根据宽度自动排列 -->
+                <div class="authors" style="font-size: 1.25em; font-weight: bold; margin-bottom: 0.5rem; letter-spacing: 0.3px;">
+                    Jiayi Lei<sup>1,2</sup>, 
+                    Yuandong Pu<sup>1,2</sup>, 
+                    Xingyu Han<sup>1</sup>, 
+                    Rongpeng Zhu<sup>1</sup>, 
+                    Jing Xu<sup>3</sup>, 
+                    Jinyao Wang<sup>1</sup>, 
+                    Zijian Zhou<sup>1</sup>, 
+                    Bin Fu<sup>2</sup>, 
+                    Yuewen Cao<sup>2&dagger;</sup>, 
+                    Yihao Liu<sup>2&dagger;</sup>, 
+                    Hongsheng Li<sup>3&dagger;</sup>
                 </div>
+        
+                <!-- 2. 机构列表：使用 display: inline-block 让它们排成一行 -->
+                <div class="institutions" style="font-size: 1.05em; margin-bottom: 0.3rem;">
+                    <span style="display: inline-block; margin: 0 10px;"><sup>1</sup>Shanghai Jiao Tong University</span>
+                    <span style="display: inline-block; margin: 0 10px;"><sup>2</sup>Shanghai AI Laboratory</span>
+                    <span style="display: inline-block; margin: 0 10px;"><sup>3</sup>The Chinese University of Hong Kong</span>
+                </div>
+        
+                <!-- 3. 通讯作者标注 -->
+                <div class="corresponding-author" style="font-size: 1.0em; font-style: italic;">
+                    <sup>&dagger;</sup>Corresponding author
+                </div>
+        
             </div>
+        </div>
+
+        <d-article>
+           
 
 
 
