@@ -140,36 +140,29 @@
 
         <d-article>
         <div class="byline">
-            <div class="byline-container" style="text-align: center; font-family: 'Times New Roman', Times, serif; color: #111; line-height: 1.5; margin: 2rem auto; max-width: 1200px; padding: 0 20px;">
+            <div class="byline-container" style="text-align: center; font-family: 'Times New Roman', Times, serif; color: #111; line-height: 1.6; margin: 2rem auto; max-width: 1000px;">
                 
-                <!-- 核心修改：添加 white-space: nowrap，强制不换行 -->
-                <div class="authors" style="font-size: 1.15em; font-weight: bold; margin-bottom: 0.5rem; white-space: nowrap; overflow: visible;">
-                    Jiayi Lei<sup>1,2</sup>, 
-                    Yuandong Pu<sup>1,2</sup>, 
-                    Xingyu Han<sup>1</sup>, 
-                    Rongpeng Zhu<sup>1</sup>, 
-                    Jing Xu<sup>3</sup>, 
-                    Jinyao Wang<sup>1</sup>, 
-                    Zijian Zhou<sup>1</sup>, 
-                    Bin Fu<sup>2</sup>, 
-                    Yuewen Cao<sup>2&dagger;</sup>, 
-                    Yihao Liu<sup>2&dagger;</sup>, 
-                    Hongsheng Li<sup>3&dagger;</sup>
+                <!-- 1. 作者名单：按您的要求强制换行 -->
+                <div class="authors" style="font-size: 1.25em; font-weight: bold; margin-bottom: 0.8rem;">
+                    Jiayi Lei<sup>1,2</sup>, Yuandong Pu<sup>1,2</sup>, Xingyu Han<sup>1</sup>, Rongpeng Zhu<sup>1</sup>,<br>
+                    Jing Xu<sup>3</sup>, Jinyao Wang<sup>1</sup>, Zijian Zhou<sup>1</sup>, Bin Fu<sup>2</sup>, Yuewen Cao<sup>2&dagger;</sup>,<br>
+                    Yihao Liu<sup>2&dagger;</sup>, Hongsheng Li<sup>3&dagger;</sup>
                 </div>
-                    
-                <!-- 机构列表：保持 flex 布局，使其自动适应宽度 -->
-                <div class="institutions" style="font-size: 0.95em; margin-bottom: 0.3rem; display: flex; justify-content: center; gap: 20px; flex-wrap: wrap;">
-                    <span><sup>1</sup>Shanghai Jiao Tong University</span>
-                    <span><sup>2</sup>Shanghai AI Laboratory</span>
-                    <span><sup>3</sup>The Chinese University of Hong Kong</span>
+        
+                <!-- 2. 机构列表：保持整洁 -->
+                <div class="institutions" style="font-size: 1.05em; margin-bottom: 0.5rem;">
+                    <sup>1</sup>Shanghai Jiao Tong University, <sup>2</sup>Shanghai AI Laboratory,<br>
+                    <sup>3</sup>The Chinese University of Hong Kong
                 </div>
-                    
-                <!-- 通讯作者标注 -->
-                <div class="corresponding-author" style="font-size: 0.9em; font-style: italic;">
+        
+                <!-- 3. 通讯作者标注 -->
+                <div class="corresponding-author" style="font-size: 1.0em; font-style: italic;">
                     <sup>&dagger;</sup>Corresponding author
                 </div>
+        
             </div>
         </div>
+
 
            
 
